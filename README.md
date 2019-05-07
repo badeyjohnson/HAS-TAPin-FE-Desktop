@@ -5,6 +5,9 @@ H&amp;S Tap in frontend desktop repo
 https://github.com/badeyjohnson/HAS-TAPin-FE-App
 https://github.com/badeyjohnson/HAS-TAPin-BE
 
+## example Vue repo
+https://github.com/gothinkster/vue-realworld-example-app
+
 # has-tapin-fe-desktop
 
 ## Project setup
