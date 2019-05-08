@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import VueRouter from "vue-router";
 
@@ -15,17 +14,8 @@ export default new VueRouter({
       component: () => import("../views/Login.vue")
     },
     {
-      path: "/site/:id",
-      component: () => import("../views/Site")
-    },
-    // {
-    //   path: "/map",
-    //   component: () => import("../views/Map")
-    // },
-    // {
-    //   path: "/confirm",
-    //   component: () => import("../views/Confirmation")
-    // },
+      path: "/job/:id",
+      component: () => import("../views/Job"),
+    }
   ]
-})
-
+});

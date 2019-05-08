@@ -9,6 +9,9 @@ https://github.com/badeyjohnson/HAS-TAPin-BE
 https://github.com/gothinkster/vue-realworld-example-app
 https://github.com/chrisvfritz/vue-enterprise-boilerplate
 
+## style guide
+https://vuejs.org/v2/style-guide/
+
 
 # has-tapin-fe-desktop
 
