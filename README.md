@@ -7,6 +7,8 @@ https://github.com/badeyjohnson/HAS-TAPin-BE
 
 ## example Vue repo
 https://github.com/gothinkster/vue-realworld-example-app
+https://github.com/chrisvfritz/vue-enterprise-boilerplate
+
 
 # has-tapin-fe-desktop
 

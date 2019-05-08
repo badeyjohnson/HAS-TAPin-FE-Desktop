@@ -1,22 +1,16 @@
 <template>
   <v-app>
-    <v-container>
-      <v-layout align-center justify-center column fill-height>
-        <v-flex>
-          <Toolbar/>
-        </v-flex>
-        <v-flex>
-          <router-view>
-            <!-- this is where the route matched will render-->
-          </router-view>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <Toolbar/>
+    <v-content>
+      <router-view>
+        <!-- this is where the route matched will render-->
+      </router-view>
+    </v-content>
   </v-app>
 </template>
 
 <script>
-import Toolbar from "./components/Toolbar";
+import Toolbar from "./components/TheToolbar";
 import router from "./routers/routes.js";
 
 export default {

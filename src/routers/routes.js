@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
     {
-      path: "/",
+      path: "/dashboard",
       component: () => import("../views/Dashboard")
     },
     {
@@ -18,14 +18,14 @@ export default new VueRouter({
       path: "/site/:id",
       component: () => import("../views/Site")
     },
-    {
-      path: "/map",
-      component: () => import("../views/Map")
-    },
-    {
-      path: "/confirm",
-      component: () => import("../views/Confirmation")
-    },
+    // {
+    //   path: "/map",
+    //   component: () => import("../views/Map")
+    // },
+    // {
+    //   path: "/confirm",
+    //   component: () => import("../views/Confirmation")
+    // },
   ]
 })
 

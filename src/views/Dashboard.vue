@@ -1,47 +1,69 @@
 <template>
-  <div class="Dashboard">
-    <h1>{{ msg }}</h1>
-    <p>
-      Your one stop location for on-site H&amp;S
-    </p>
-    <h3>Projects</h3>
-    <ul>
-      <li><a href="https://www.arup.com/offices/united-kingdom/leeds" target="_blank" rel="noopener">Leeds</a></li>
-      <li><a href="https://www.arup.com/offices/united-kingdom/manchester" target="_blank" rel="noopener">Manchester</a></li>
-    </ul>
-    <h3>Create</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">New project</a></li>
-    </ul>
-    <h3>Export</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">Project</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a></li>
-    </ul>
-  </div>
+  <v-container fill-height fluid class="Dashboard">
+    <v-layout row wrap>
+      <v-flex xs12>
+        <DashboardHeader/>
+      </v-flex>
+      <v-flex xs12>
+        <ul>
+          <li>
+            <DashboardProject/>
+          </li>
+          <li>
+            <DashboardProject/>
+          </li>
+          <li>
+            <DashboardProject/>
+          </li>
+        </ul>
+      </v-flex>
+      <v-flex xs12>
+            <DashboardCreate/>
+      </v-flex>
+      <v-flex>
+        <h3>Export</h3>
+        <ul>
+          <li>
+            <a href="https://router.vuejs.org" target="_blank" rel="noopener">Project</a>
+          </li>
+          <li>
+            <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
+          </li>
+        </ul>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
+import DashboardHeader from "../components/DashboardHeader";
+import DashboardProject from "../components/DashboardProject";
+import DashboardCreate from "../components/DashboardCreate";
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
+  components: {
+    DashboardHeader,
+    DashboardProject,
+    DashboardCreate
+  },
   props: {
-    msg: String
+    msg: {
+      type: String,
+      required: true
+    },
+    user: {
+      type: Number,
+      required: true
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
 ul {
   list-style-type: none;
   padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;
