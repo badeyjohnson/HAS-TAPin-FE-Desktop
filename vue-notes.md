@@ -102,3 +102,6 @@ Things added to data will not cause a re-render, only updates. So start with emp
 ## CSS
 
 dynamically bind class using `v-bind:class="{some-JS-Property}"`
+
+##
+https://stackoverflow.com/questions/52047564/vuejs-leaflet-map-container-not-found/52050494
