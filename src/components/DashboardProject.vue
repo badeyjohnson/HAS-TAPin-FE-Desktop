@@ -3,7 +3,7 @@
     <v-container class="DashboardProject">
       <v-layout>
         <v-card-title primary-title>
-          <h3 class="headline mb-0">this is an example project card</h3>
+          <h3 class="headline mb-0">this is an example job card</h3>
         </v-card-title>
         <router-link class="nav-link" exact to="/job/:id">
           <v-card-text primary-title>
