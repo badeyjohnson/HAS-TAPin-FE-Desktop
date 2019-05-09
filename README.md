@@ -14,6 +14,7 @@ https://vuejs.org/v2/style-guide/
 
 ## vuetify component guide
 https://vuetifyjs.com/en/components/api-explorer
+https://flaviocopes.com/vue-props/
 
 ## Project setup
 ```

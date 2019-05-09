@@ -15,10 +15,10 @@
         <DashboardCreate/>
       </v-flex>
       <v-flex>
-        <h3>Export</h3>
+        <h3>{{msg}}</h3>
         <ul>
           <li>
-            <a href="https://router.vuejs.org" target="_blank" rel="noopener">Project</a>
+            <a href="https://router.vuejs.org" target="_blank" rel="noopener">{{jobs[0].JN}}</a>
           </li>
           <li>
             <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
@@ -39,13 +38,15 @@ export default {
   name: "Dashboard",
   data: () => {
     return {
+      msg: "hello",
       jobs: [
         { JN: 1242, name: "one" },
         { JN: 1865, name: "blue" },
         { JN: 12456, name: "small" },
         { JN: 127, name: "duck" },
         { JN: 545678, name: "row" },
-        { JN: 368, name: "again" }
+        { JN: 368, name: "again" },
+        { JN: 3610, name: "again" }
       ]
     };
   },
@@ -54,11 +55,6 @@ export default {
     DashboardProject,
     DashboardCreate
   },
-  props: {
-    user: {
-      type: Number
-    }
-  }
 };
 </script>
 
