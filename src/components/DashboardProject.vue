@@ -1,14 +1,14 @@
 <template>
-  <v-card>
-    <v-container>
+  <v-card >
+    <v-container class="DashboardProject">
       <v-layout>
         <v-card-title primary-title>
           <h3 class="headline mb-0">this is an example project card</h3>
         </v-card-title>
         <router-link class="nav-link" exact to="/job/:id">
-        <v-card-title primary-title>
-          <h3 class="headline mb-0">Go to job</h3>
-        </v-card-title>
+          <v-card-text primary-title>
+            <a class="headline mb-0">Job number {{job.JN}}, Job name {{job.name}}</a>
+          </v-card-text>
         </router-link>
       </v-layout>
     </v-container>
@@ -18,11 +18,12 @@
 <script>
 export default {
   name: "DashboardProject",
-  data: () => {},
   props: {
     job: {
-      type: Array,
+      type: Object,
       required: true,
+      default: 'yellow'
     }
   }
-}
+};
+</script>

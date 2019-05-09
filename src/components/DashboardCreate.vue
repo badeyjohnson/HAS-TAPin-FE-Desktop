@@ -1,7 +1,7 @@
 // base this off DashboardHeader
 
 <template>
-  <v-card hover="true">
+  <v-card :hover="true">
     <v-container>
       <v-layout>
         <router-link class="nav-link" exact to="/job/create">
