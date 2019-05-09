@@ -12,8 +12,8 @@ https://github.com/chrisvfritz/vue-enterprise-boilerplate
 ## style guide
 https://vuejs.org/v2/style-guide/
 
-
-# has-tapin-fe-desktop
+## vuetify component guide
+https://vuetifyjs.com/en/components/api-explorer
 
 ## Project setup
 ```

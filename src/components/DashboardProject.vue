@@ -14,3 +14,15 @@
     </v-container>
   </v-card>
 </template>
+
+<script>
+export default {
+  name: "DashboardProject",
+  data: () => {},
+  props: {
+    job: {
+      type: Array,
+      required: true,
+    }
+  }
+}

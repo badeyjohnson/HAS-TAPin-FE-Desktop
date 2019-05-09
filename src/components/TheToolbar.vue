@@ -9,7 +9,12 @@
     <v-spacer></v-spacer>
     <router-link class="nav-link" exact to="/site/create">
       <v-btn flat>
-        <span class="mr-2">Create</span>
+        <span class="mr-2">+ Create</span>
+      </v-btn>
+    </router-link>
+    <router-link class="nav-link" exact to="/Login">
+      <v-btn flat>
+        <span class="mr-2">Logout</span>
       </v-btn>
     </router-link>
   </v-toolbar>

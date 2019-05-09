@@ -6,19 +6,13 @@
       </v-flex>
       <v-flex xs12>
         <ul>
-          <li>
-            <DashboardProject/>
-          </li>
-          <li>
-            <DashboardProject/>
-          </li>
-          <li>
-            <DashboardProject/>
+          <li v-for="job in jobs" :key="`${job.JN}`">
+            <DashboardProject :job="job"/>
           </li>
         </ul>
       </v-flex>
       <v-flex xs12>
-            <DashboardCreate/>
+        <DashboardCreate/>
       </v-flex>
       <v-flex>
         <h3>Export</h3>
@@ -36,24 +30,33 @@
 </template>
 
 <script>
+import Vue from "vue";
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
+
 export default {
   name: "Dashboard",
+  data: () => {
+    return {
+      jobs: [
+        { JN: 1242, name: "one" },
+        { JN: 1865, name: "blue" },
+        { JN: 12456, name: "small" },
+        { JN: 127, name: "duck" },
+        { JN: 545678, name: "row" },
+        { JN: 368, name: "again" }
+      ]
+    };
+  },
   components: {
     DashboardHeader,
     DashboardProject,
     DashboardCreate
   },
   props: {
-    msg: {
-      type: String,
-      required: true
-    },
     user: {
-      type: Number,
-      required: true
+      type: Number
     }
   }
 };
