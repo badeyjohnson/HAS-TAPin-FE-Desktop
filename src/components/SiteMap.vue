@@ -20,21 +20,19 @@ import L from "leaflet";
 import { Draw } from "leaflet-draw";
 export default {
   name: "lmap",
-  data: () => ({
-    map: null,
-    tileLayer: null,
-    polygon: [
-      [53.808819, -1.570087],
-      [53.802323, -1.537812],
-      [53.787217, -1.542117],
-      [53.792495, -1.566657]
-    ]
-  }),
   props: {
     rerender: {
       type: Boolean
+    },
+    boundary: {
+      type: Object
     }
   },
+  data: () => ({
+    map: null,
+    tileLayer: null,
+    polygon: []
+  }),
   watch: {
     rerender: function() {
       this.map.invalidateSize();
@@ -56,6 +54,7 @@ export default {
 
   methods: {
     initMap() {
+      console.log(this.polygon, "<< polygon");
       this.map = L.map(this.$refs["mapElement"]).setView(
         [53.7947616, -1.5468854],
         14
@@ -91,7 +90,7 @@ export default {
         this.polygon = layer._latlngs;
       });
       console.log(this.polygon);
-      const poly = L.polygon(this.polygon).addTo(this.map);
+      const poly = L.polygon(this.boundary).addTo(this.map);
       this.map.addControl(drawControl);
     },
     initLayers() {},
