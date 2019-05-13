@@ -15,9 +15,7 @@
               @click:append="showPassword = !showPassword"
               required
             ></v-text-field>
-            <!-- <router-link class="nav-link" exact to="/dashboard"> -->
-              <v-btn @click="submit">submit</v-btn>
-            <!-- </router-link> -->
+            <v-btn @click="submit">submit</v-btn>
             <v-btn @click="clear">clear</v-btn>
           </form>
         </v-parallax>
@@ -27,6 +25,7 @@
 </template>
 
 <script>
+import bcrypt from 'bcryptjs';
 import * as api from "../api";
 import router from "../routers/routes.js";
 
@@ -40,9 +39,6 @@ export default {
   props: {
     login: {
       type: Function
-    },
-    auth: {
-      type: Boolean
     }
   },
   methods: {
@@ -52,8 +48,13 @@ export default {
     },
     async submit() {
       const user = await api.auth(this.email);
-      if (user) this.login(this.email);
-      router.push({ path: '/dashboard' })
+      bcrypt.compare(this.password, user.password, function(err, res) {
+        if (res) {
+          localStorage.setItem("user", user);
+          localStorage.setItem("isAuth", true);
+          router.push({ path: "/dashboard" });
+        }
+      });
     }
   }
 };
@@ -65,6 +66,6 @@ export default {
 }
 
 input:-internal-autofill-selected {
-    background-color: transparent
+  background-color: transparent;
 }
 </style>
