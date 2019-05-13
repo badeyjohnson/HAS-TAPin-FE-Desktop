@@ -3,19 +3,40 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: "/dashboard",
-      component: () => import("../views/Dashboard")
+      component: () => import("../views/Dashboard"),
+      beforeEnter: requireAuth
     },
     {
       path: "/login",
-      component: () => import("../views/Login.vue")
+      component: () => import("../views/Login.vue"),
+      beforeEnter: (to, from, next) => {
+        if (JSON.parse(localStorage.getItem("isAuth")) === true) {
+          next("/dashboard");
+        } else {
+          next();
+        }
+      }
     },
     {
       path: "/job/:id",
-      component: () => import("../views/Job"),
+      component: () => import("../views/Job")
     }
   ]
 });
+
+function requireAuth(to, from, next) {
+  if (!JSON.parse(localStorage.getItem("isAuth"))) {
+    next({
+      path: "/login",
+      query: null
+    });
+  } else {
+    next();
+  }
+}
+
+export default router;

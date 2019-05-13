@@ -12,13 +12,32 @@
         <span class="mr-2">+ Create</span>
       </v-btn>
     </router-link>
-    <router-link class="nav-link" exact to="/Login">
+    <router-link class="nav-link" exact to="/login">
       <v-btn flat>
-        <span class="mr-2">Logout</span>
+        <span class="mr-2" @click="removeAuth">Logout</span>
       </v-btn>
     </router-link>
   </v-toolbar>
 </template>
+
+<script>
+export default {
+  name: "Login",
+  data: () => ({
+    email: "",
+    password: "",
+    showPassword: false
+  }),
+  props: {
+    logout: {
+      type: Function
+    }
+  },
+  methods: {
+    removeAuth() {this.logout()} 
+  }
+};
+</script>
 
 <style scoped>
 .nav-link {
