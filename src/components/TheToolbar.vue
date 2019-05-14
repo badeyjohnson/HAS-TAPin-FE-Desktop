@@ -14,7 +14,7 @@
     </router-link>
     <router-link class="nav-link" exact to="/login">
       <v-btn flat>
-        <span class="mr-2" @click="removeAuth">Logout</span>
+        <span class="mr-2" @click="logout">Logout</span>
       </v-btn>
     </router-link>
   </v-toolbar>
@@ -22,20 +22,12 @@
 
 <script>
 export default {
-  name: "Login",
-  data: () => ({
-    email: "",
-    password: "",
-    showPassword: false
-  }),
+  name: "Toolbar",
   props: {
     logout: {
       type: Function
     }
   },
-  methods: {
-    removeAuth() {this.logout()} 
-  }
 };
 </script>
 

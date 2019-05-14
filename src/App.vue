@@ -2,7 +2,7 @@
   <v-app>
     <Toolbar :logout="logout"/>
     <v-content>
-      <router-view></router-view>
+      <router-view :updateUser="updateUser" :user="user"></router-view>
     </v-content>
   </v-app>
 </template>
@@ -14,17 +14,25 @@ import router from "./routers/routes.js";
 export default {
   name: "App",
   router,
+  data: () => ({
+    user: {}
+  }),
   components: {
     Toolbar
   },
   mounted() {
     this.auth = localStorage.getItem("isAuth") || false;
+    this.user = JSON.parse(localStorage.getItem("user"))|| "";
   },
 
   methods: {
     logout() {
       localStorage.removeItem("isAuth");
       localStorage.removeItem("user");
+      this.user = {};
+    },
+    updateUser(update) {
+      this.user = update
     }
   }
 };

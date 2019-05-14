@@ -22,7 +22,7 @@ export default {
   name: "Site",
   components: {
     JobSiteCarousel,
-    JobHeader,
-  }
+    JobHeader
+  },
 };
 </script>

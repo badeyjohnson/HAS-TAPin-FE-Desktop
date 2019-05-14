@@ -2,11 +2,11 @@
   <v-container fill-height fluid class="Dashboard">
     <v-layout row wrap>
       <v-flex xs12>
-        <DashboardHeader/>
+        <DashboardHeader :user="user"/>
       </v-flex>
       <v-flex xs12>
         <ul>
-          <li v-for="job in jobs" :key="`${job.JN}`">
+          <li v-for="job in jobs" :key="job.job_no">
             <DashboardProject :job="job"/>
           </li>
         </ul>
@@ -15,10 +15,10 @@
         <DashboardCreate/>
       </v-flex>
       <v-flex>
-        <h3>{{msg}}</h3>
+        <h3>Useful links</h3>
         <ul>
           <li>
-            <a href="https://router.vuejs.org" target="_blank" rel="noopener">{{jobs[0].JN}}</a>
+            <a href="https://router.vuejs.org" target="_blank" rel="noopener">"jobs[0].JN"</a>
           </li>
           <li>
             <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
@@ -33,28 +33,34 @@
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
+import * as api from '../api';
 
 export default {
   name: "Dashboard",
   data: () => {
     return {
-      msg: "hello",
-      jobs: [
-        { JN: 1242, name: "one" },
-        { JN: 1865, name: "blue" },
-        { JN: 12456, name: "small" },
-        { JN: 127, name: "duck" },
-        { JN: 545678, name: "row" },
-        { JN: 368, name: "again" },
-        { JN: 3610, name: "again" }
-      ]
+      jobs: []
     };
+  },
+  props: {
+    user : {
+      type: Object
+    }
+  },
+  mounted() {
+    this.fetchJobs()
+  },
+  methods: {
+    async fetchJobs() {
+      const userJobs = await api.getJobs(this.user.email);
+      this.jobs = userJobs.jobs
+    }
   },
   components: {
     DashboardHeader,
     DashboardProject,
     DashboardCreate
-  },
+  }
 };
 </script>
 
