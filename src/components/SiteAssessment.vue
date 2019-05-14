@@ -9,7 +9,7 @@
         <v-card-title class="headline grey lighten-2" primary-title>Site information</v-card-title>
 
         <v-card-text>This card should have a map, information about the latest risk assessment, list of people who have filled it out etc</v-card-text>
-        <SiteMap :rerender=" dialog "/>
+        <SiteMap :rerender=" dialog " :boundary="polygon"/>
 
         <v-divider></v-divider>
 
@@ -27,7 +27,13 @@ import SiteMap from "./SiteMap";
 export default {
   data() {
     return {
-      dialog: false
+      dialog: false,
+      polygon: [
+        [53.808819, -1.570087],
+        [53.802323, -1.537812],
+        [53.787217, -1.542117],
+        [53.792495, -1.566657]
+      ]
     };
   },
   components: {

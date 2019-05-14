@@ -1,10 +1,8 @@
 <template>
   <v-app>
-    <Toolbar/>
+    <Toolbar :logout="logout"/>
     <v-content>
-      <router-view>
-        <!-- this is where the route matched will render-->
-      </router-view>
+      <router-view :updateUser="updateUser" :user="email"></router-view>
     </v-content>
   </v-app>
 </template>
@@ -16,8 +14,26 @@ import router from "./routers/routes.js";
 export default {
   name: "App",
   router,
+  data: () => ({
+    email: ""
+  }),
   components: {
     Toolbar
+  },
+  mounted() {
+    this.auth = localStorage.getItem("isAuth") || false;
+    this.email = localStorage.getItem("user") || "";
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem("isAuth");
+      localStorage.removeItem("user");
+      this.email = "";
+    },
+    updateUser(update) {
+      this.email = update
+    }
   }
 };
 </script>

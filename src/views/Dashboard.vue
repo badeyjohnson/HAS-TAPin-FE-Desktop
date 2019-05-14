@@ -33,28 +33,33 @@
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
+import * as api from '../api'
 
 export default {
   name: "Dashboard",
   data: () => {
     return {
-      msg: "hello",
-      jobs: [
-        { JN: 1242, name: "one" },
-        { JN: 1865, name: "blue" },
-        { JN: 12456, name: "small" },
-        { JN: 127, name: "duck" },
-        { JN: 545678, name: "row" },
-        { JN: 368, name: "again" },
-        { JN: 3610, name: "again" }
-      ]
+      msg: 'hi',
+      jobs: []
     };
+  },
+  props: {
+    user : {
+      type: String
+    }
+  },
+  created: {
+    async fetchJobs() {
+      const userJobs = await api.getJobs(this.user);
+      console.log(userJobs)
+      this.jobs = userJobs
+    }
   },
   components: {
     DashboardHeader,
     DashboardProject,
     DashboardCreate
-  },
+  }
 };
 </script>
 

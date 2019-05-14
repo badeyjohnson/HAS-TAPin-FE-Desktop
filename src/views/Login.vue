@@ -4,20 +4,25 @@
       <v-flex xs6 sm4 lg3>
         <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
           <v-img :src="require('../assets/Arup-logo.png')" class="my-3" contain height="200"></v-img>
-          <form >
-            <v-text-field v-model="email" label="E-mail" data-vv-name="email" required></v-text-field>
-            <v-text-field 
-              v-model="password" 
+          <form>
+            <v-text-field
+              class="input-alpha"
+              v-model="email"
+              label="E-mail"
+              data-vv-name="email"
+              required
+            ></v-text-field>
+            <v-text-field
+              class="textbox"
+              v-model="password"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-              label="Password" 
-              data-vv-name="password" 
+              label="Password"
+              data-vv-name="password"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
-              required>
-            </v-text-field>
-          <router-link class="nav-link" exact to="/dashboard">
+              required
+            ></v-text-field>
             <v-btn @click="submit">submit</v-btn>
-          </router-link>
             <v-btn @click="clear">clear</v-btn>
           </form>
         </v-parallax>
@@ -27,21 +32,37 @@
 </template>
 
 <script>
+import bcrypt from "bcryptjs";
+import * as api from "../api";
+import router from "../routers/routes.js";
+
 export default {
   name: "Login",
   data: () => ({
-    email: "",
     password: "",
-    showPassword: false,
+    email: "",
+    showPassword: false
   }),
-
+  props: {
+    updateUser: {
+      type: Function
+    }
+  },
   methods: {
     clear() {
       this.email = "";
       this.password = "";
     },
-    submit() {
-      console.log('email: ', this.email, ' password: ', this.password)
+    async submit() {
+      const user = await api.auth(this.email);
+      bcrypt.compare(this.password, user.password, (err, res) => {
+        if (res) {
+          localStorage.setItem("user", user.email);
+          localStorage.setItem("isAuth", true);
+          this.updateUser(this.email);
+          router.push({ path: "/dashboard" });
+        }
+      });
     }
   }
 };
