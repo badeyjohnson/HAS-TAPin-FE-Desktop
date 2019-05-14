@@ -22,19 +22,21 @@ import * as api from "../api";
 export default {
   name: "Site",
   data: () => ({
-    jobInfo: {}
+    jobInfo: {},
+    siteInfo: {}
   }),
   components: {
     JobSiteCarousel,
     JobHeader
   },
   created() {
-    this.getJobInfo()
+    this.getJobInfo();
   },
   methods: {
     async getJobInfo() {
-      this.jobInfo = await api.getSingleJob(this.$route.params.id)
-    }
+      this.jobInfo = await api.getSingleJob(this.$route.params.id);
+    },
+
   }
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
   <v-card color="black" dark flat tile>
     <v-window v-model="onboarding">
-      <v-window-item v-for="n in length" :key="`card-${n}`">
-        <JobInfo/>
+      <v-window-item v-for="n in carouselLength" :key="`card-${n}`">
+        <SiteInfo :info="siteDetails[n-1]"/>
         <JobSiteRiskAssessment/>
       </v-window-item>
     </v-window>
@@ -11,7 +11,7 @@
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
       <v-item-group v-model="onboarding" class="text-xs-center" mandatory>
-        <v-item v-for="n in length" :key="`btn-${n}`">
+        <v-item v-for="n in carouselLength" :key="`btn-${n}`">
           <v-btn slot-scope="{ active, toggle }" :input-value="active" icon @click="toggle">
             <v-icon>mdi-record</v-icon>
           </v-btn>
@@ -25,17 +25,26 @@
 </template>
 
 <script>
-import JobInfo from "./JobInfo";
+import SiteInfo from "./SiteInfo";
 import JobSiteRiskAssessment from "./JobSiteRiskAssessment";
+import * as api from "../api";
 
 export default {
   data: () => ({
-    length: 3,
-    onboarding: 0
+    onboarding: 0,
+    siteDetails: []
   }),
   components: {
-    JobInfo,
+    SiteInfo,
     JobSiteRiskAssessment
+  },
+  computed: {
+    carouselLength() {
+      return this.siteDetails.length
+    }
+  },
+  created() {
+    this.getSiteDetails();
   },
   methods: {
     next() {
@@ -45,6 +54,9 @@ export default {
     prev() {
       this.onboarding =
         this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
+    },
+    async getSiteDetails() {
+      this.siteDetails = await api.getJobSites(this.$route.params.id);
     }
   }
 };

@@ -19,7 +19,7 @@ export const getSingleJob = async (jobNo) => {
 
 export const getJobSites = async (jobNo) => {
   const {data} = await axios.get(`${BASE_URL}jobs/${jobNo}/sites`);
-  return data
+  return data.sites
 }
 
 export const getQuestions = async (siteId) => {
