@@ -3,10 +3,9 @@
     <v-layout align-center justify-center row fill-height>
       <v-flex xs6 sm4 lg3>
         <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
-          <v-img :src="require('../assets/Arup-logo.png')" class="my-3" contain height="200"></v-img>
+          <v-img :src="require('../assets/Arup-logo.png')" contain height="200"></v-img>
           <form>
             <v-text-field
-              class="input-alpha"
               v-model="email"
               label="E-mail"
               data-vv-name="email"
@@ -57,9 +56,9 @@ export default {
       const user = await api.auth(this.email);
       bcrypt.compare(this.password, user.password, (err, res) => {
         if (res) {
-          localStorage.setItem("user", user.email);
+          localStorage.setItem("user", JSON.stringify(user));
           localStorage.setItem("isAuth", true);
-          this.updateUser(this.email);
+          this.updateUser(user);
           router.push({ path: "/dashboard" });
         }
       });

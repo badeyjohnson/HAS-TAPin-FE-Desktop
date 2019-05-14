@@ -3,11 +3,12 @@
     <v-container class="DashboardProject">
       <v-layout>
         <v-card-title primary-title>
-          <h3 class="headline mb-0">this is an example job card</h3>
+          <h1 class="headline mb-0">{{job.job_name}}</h1>
+          <h2 class="headline mb-0">{{job.job_no}}</h2>
         </v-card-title>
-        <router-link class="nav-link" exact to="/job/:id">
+        <router-link class="nav-link" exact :to="{path: `job/${job.job_no}`}">
           <v-card-text primary-title>
-            <a class="headline mb-0">Job number {{job.JN}}, Job name {{job.name}}</a>
+            <a class="headline mb-0">Go to Job </a>
           </v-card-text>
         </router-link>
       </v-layout>
@@ -22,7 +23,6 @@ export default {
     job: {
       type: Object,
       required: true,
-      default: 'yellow'
     }
   }
 };
