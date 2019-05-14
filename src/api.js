@@ -7,7 +7,7 @@ export const auth = async (email) => {
   return data.user
 };
 
-export const jobs = async (email) => {
+export const getJobs = async (email) => {
   const {data} = await axios.get(`${BASE_URL}users/${email}/jobs`);
   return data
 }
