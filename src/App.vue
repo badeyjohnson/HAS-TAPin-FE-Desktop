@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Toolbar :logout="logout"/>
+    <Toolbar :logout="logout" :user="user"/>
     <v-content>
       <router-view :updateUser="updateUser" :user="user"></router-view>
     </v-content>
@@ -24,7 +24,6 @@ export default {
     this.auth = localStorage.getItem("isAuth") || false;
     this.user = JSON.parse(localStorage.getItem("user"))|| "";
   },
-
   methods: {
     logout() {
       localStorage.removeItem("isAuth");
