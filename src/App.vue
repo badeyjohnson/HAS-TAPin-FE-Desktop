@@ -22,7 +22,7 @@ export default {
   },
   mounted() {
     this.auth = localStorage.getItem("isAuth") || false;
-    this.user = localStorage.getItem("user") || "";
+    this.user = JSON.parse(localStorage.getItem("user"))|| "";
   },
 
   methods: {

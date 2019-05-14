@@ -2,7 +2,7 @@
   <v-container fill-height fluid class="Dashboard">
     <v-layout row wrap>
       <v-flex xs12>
-        <DashboardHeader/>
+        <DashboardHeader :user="user"/>
       </v-flex>
       <v-flex xs12>
         <!-- <ul>
