@@ -12,6 +12,16 @@ export const getJobs = async (email) => {
   return data
 }
 
+export const getSingleJob = async (jobNo) => {
+  const {data} = await axios.get(`${BASE_URL}jobs/${jobNo}`);
+  return data.job
+}
+
+export const getJobSites = async (jobNo) => {
+  const {data} = await axios.get(`${BASE_URL}jobs/${jobNo}/sites`);
+  return data
+}
+
 export const getQuestions = async (siteId) => {
   const {data} = await axios.get(`${BASE_URL}sites/${siteId}/new_risk_assessment`);
   return data

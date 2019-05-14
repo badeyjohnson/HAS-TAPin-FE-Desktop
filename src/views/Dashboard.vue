@@ -5,17 +5,17 @@
         <DashboardHeader :user="user"/>
       </v-flex>
       <v-flex xs12>
-        <!-- <ul>
-          <li v-for="job in jobs" :key="`${job.JN}`">
+        <ul>
+          <li v-for="job in jobs" :key="job.job_no">
             <DashboardProject :job="job"/>
           </li>
-        </ul> -->
+        </ul>
       </v-flex>
       <v-flex xs12>
         <DashboardCreate/>
       </v-flex>
       <v-flex>
-        <h3>{{msg}}</h3>
+        <h3>Useful links</h3>
         <ul>
           <li>
             <a href="https://router.vuejs.org" target="_blank" rel="noopener">"jobs[0].JN"</a>
@@ -39,7 +39,6 @@ export default {
   name: "Dashboard",
   data: () => {
     return {
-      msg: 'hi',
       jobs: []
     };
   },

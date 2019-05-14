@@ -55,7 +55,6 @@ export default {
     },
     async submit() {
       const user = await api.auth(this.email);
-      console.log(user)
       bcrypt.compare(this.password, user.password, (err, res) => {
         if (res) {
           localStorage.setItem("user", JSON.stringify(user));
