@@ -29,5 +29,11 @@ export const getSiteRiskAssessments = async (siteId) => {
 
 export const getQuestions = async (siteId) => {
   const {data} = await axios.get(`${BASE_URL}sites/${siteId}/new_risk_assessment`);
-  return data.questions
+  const questions = data.questions.map(q => {
+    return {
+      ...q,
+      question_IdName: `q${q.question_id}`
+    }
+  })
+  return questions
 }
