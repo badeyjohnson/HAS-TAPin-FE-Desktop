@@ -12,6 +12,28 @@
     </v-container>
   </v-card>
 </template>
+<<<<<<< HEAD
+<script >
+export default {
+  name: "lmap",
+  data: () => ({
+    map: null,
+    tileLayer: null,
+    polygon: [
+      [53.808819, -1.570087],
+      [53.802323, -1.537812],
+      [53.787217, -1.542117],
+      [53.792495, -1.566657]
+    ]
+  }),
+props: {
+    title: {
+      type: Boolean
+    }
+  }
+}
+</script>
+=======
 
 <script>
 import * as api from "../api";
@@ -31,3 +53,4 @@ export default {
   }
 };
 </script>
+>>>>>>> 6a590c8731dd0cceabed2e74d3d201e9adf154e0

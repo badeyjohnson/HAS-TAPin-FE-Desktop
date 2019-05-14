@@ -23,7 +23,11 @@ const router = new VueRouter({
     },
     {
       path: "/job/:id",
-      component: () => import("../views/Job")
+      component: () => import("../views/Job"),
+    },
+    {
+      path: "/site/create",
+      component: () => import("../views/Create"),
     }
   ]
 });
