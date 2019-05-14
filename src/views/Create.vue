@@ -14,7 +14,7 @@
             <div v-if="q.question_id === 1">
               <v-text-field
                 v-model="dates[index]"
-                :counter="10"
+                :counter="100"
                 :rules="nameRules"
                 :label="q.question"
                 required
@@ -23,20 +23,84 @@
             <div v-if="q.question_id >1 && q.question_id <= 10">
               <v-text-field
                 v-model="multi[index]"
-                :counter="10"
+                :counter="100"
                 :rules="nameRules"
                 :label="q.question"
                 required
               ></v-text-field>
             </div>
             <div v-if="q.question_id >10 && q.question_id <= 33">
+              <span>{{q.question}}</span>
+              <v-radio-group v-model="answers[index]" row>
+                <v-radio label="Yes" value="Yes"></v-radio>
+                <v-radio label="No" value="No"></v-radio>
+                <v-radio label="N/A" value="null"></v-radio>
+              </v-radio-group>
               <v-text-field
-                v-model="answers[index]"
-                :counter="10"
+                v-model="mitigations[index]"
+                :counter="300"
                 :rules="nameRules"
-                :label="q.question"
+                label="Mitigation measures"
                 required
               ></v-text-field>
+              <span>Risk Level:</span>
+              <v-radio-group v-model="riskLevels[index]" row>
+                <v-radio label="High" value="H"></v-radio>
+                <v-radio label="Mod" value="M"></v-radio>
+                <v-radio label="Low" value="L"></v-radio>
+              </v-radio-group>
+            </div>
+            <div v-if="q.question_id === 34">
+              <v-layout row wrap>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              <v-flex xs12 sm2 md2>
+                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
+                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
+              </v-flex>
+              </v-layout>
             </div>
             <!-- <v-text-field
               v-model="answers[index]"
@@ -44,7 +108,7 @@
               :rules="nameRules"
               :label="q.question"
               required
-            ></v-text-field> -->
+            ></v-text-field>-->
           </div>
           <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
 
@@ -97,11 +161,11 @@ export default {
       valid: true,
       polygon: [[]],
       questions: [],
-      dates:[],
-      multi:[],
-      answers:[],
-      mitigations:[],
-      riskLevels:[],
+      dates: [],
+      multi: [],
+      answers: [],
+      mitigations: [],
+      riskLevels: [],
       name: "",
       nameRules: [
         v => !!v || "Name is required",
@@ -118,12 +182,10 @@ export default {
     };
   },
   watch: {
-    answers: function () {
-      console.log(this.answers, '<<<this')
+    answers: function() {
+      console.log(this.answers, "<<<this");
     }
   },
-
-
 
   mounted() {
     this.fetchQuestions();
