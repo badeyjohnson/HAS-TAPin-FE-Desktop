@@ -5,11 +5,11 @@
         <DashboardHeader/>
       </v-flex>
       <v-flex xs12>
-        <ul>
+        <!-- <ul>
           <li v-for="job in jobs" :key="`${job.JN}`">
             <DashboardProject :job="job"/>
           </li>
-        </ul>
+        </ul> -->
       </v-flex>
       <v-flex xs12>
         <DashboardCreate/>
@@ -18,7 +18,7 @@
         <h3>{{msg}}</h3>
         <ul>
           <li>
-            <a href="https://router.vuejs.org" target="_blank" rel="noopener">{{jobs[0].JN}}</a>
+            <a href="https://router.vuejs.org" target="_blank" rel="noopener">"jobs[0].JN"</a>
           </li>
           <li>
             <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
@@ -33,7 +33,7 @@
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
-import * as api from '../api'
+import * as api from '../api';
 
 export default {
   name: "Dashboard",
@@ -45,14 +45,16 @@ export default {
   },
   props: {
     user : {
-      type: String
+      type: Object
     }
   },
-  created: {
+  mounted() {
+    this.fetchJobs()
+  },
+  methods: {
     async fetchJobs() {
-      const userJobs = await api.getJobs(this.user);
-      console.log(userJobs)
-      this.jobs = userJobs
+      const userJobs = await api.getJobs(this.user.email);
+      this.jobs = userJobs.jobs
     }
   },
   components: {

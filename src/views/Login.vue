@@ -57,9 +57,9 @@ export default {
       const user = await api.auth(this.email);
       bcrypt.compare(this.password, user.password, (err, res) => {
         if (res) {
-          localStorage.setItem("user", user.email);
+          localStorage.setItem("user", user);
           localStorage.setItem("isAuth", true);
-          this.updateUser(this.email);
+          this.updateUser(user);
           router.push({ path: "/dashboard" });
         }
       });
