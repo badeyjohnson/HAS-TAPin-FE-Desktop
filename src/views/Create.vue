@@ -10,23 +10,41 @@
       <v-flex xs12>
         <SiteMap :boundary="polygon"/>
         <v-form ref="form" v-model="valid" lazy-validation>
-          <div v-for="q in questions" :key="q.question_id">
+          <div v-for="(q, index) in questions" :key="q.question_id">
             <div v-if="q.question_id === 1">
               <v-text-field
-                :v-model="q.question_id"
+                v-model="dates[index]"
                 :counter="10"
                 :rules="nameRules"
                 :label="q.question"
                 required
               ></v-text-field>
             </div>
-            <v-text-field
-              :v-model="q.question_id"
+            <div v-if="q.question_id >1 && q.question_id <= 10">
+              <v-text-field
+                v-model="multi[index]"
+                :counter="10"
+                :rules="nameRules"
+                :label="q.question"
+                required
+              ></v-text-field>
+            </div>
+            <div v-if="q.question_id >10 && q.question_id <= 33">
+              <v-text-field
+                v-model="answers[index]"
+                :counter="10"
+                :rules="nameRules"
+                :label="q.question"
+                required
+              ></v-text-field>
+            </div>
+            <!-- <v-text-field
+              v-model="answers[index]"
               :counter="10"
               :rules="nameRules"
               :label="q.question"
               required
-            ></v-text-field>
+            ></v-text-field> -->
           </div>
           <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
 
@@ -79,7 +97,11 @@ export default {
       valid: true,
       polygon: [[]],
       questions: [],
-      1:"",
+      dates:[],
+      multi:[],
+      answers:[],
+      mitigations:[],
+      riskLevels:[],
       name: "",
       nameRules: [
         v => !!v || "Name is required",
@@ -96,13 +118,15 @@ export default {
     };
   },
   watch: {
-    1: function () {
-      console.log(1, '<<<this')
+    answers: function () {
+      console.log(this.answers, '<<<this')
     }
   },
 
+
+
   mounted() {
-    this.fetchJobs();
+    this.fetchQuestions();
   },
 
   methods: {
@@ -111,7 +135,7 @@ export default {
         this.snackbar = true;
       }
     },
-    async fetchJobs() {
+    async fetchQuestions() {
       const questions = await api.getQuestions(1);
       console.log(questions, "<<< Qs");
       this.questions = questions;
@@ -124,39 +148,3 @@ export default {
   }
 };
 </script>
-
-data: () => ({
-    valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters'
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid'
-    ],
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4'
-    ],
-    checkbox: false
-  }),
-
-  methods: {
-    validate () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
-    }
-  }

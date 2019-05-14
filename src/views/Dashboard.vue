@@ -5,11 +5,14 @@
         <DashboardHeader :user="user"/>
       </v-flex>
       <v-flex xs12>
+        <v-list style="max-height: 50vh"
+       class="scroll-y">
         <ul>
           <li v-for="job in jobs" :key="job.job_no">
             <DashboardProject :job="job"/>
           </li>
         </ul>
+        </v-list>
       </v-flex>
       <v-flex xs12>
         <DashboardCreate/>

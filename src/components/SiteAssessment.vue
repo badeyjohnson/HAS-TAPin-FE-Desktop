@@ -8,7 +8,7 @@
         <v-card-title class="headline grey lighten-2" primary-title>Site information</v-card-title>
         <v-card-text>This card should have a map, information about the latest risk assessment, list of people who have filled it out etc</v-card-text>
         <SiteMap :rerender=" dialog " :boundary="polygon"/>
-
+        
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
