@@ -25,7 +25,7 @@ export default {
       type: Boolean
     },
     boundary: {
-      type: Object
+      type: Array
     }
   },
   data: () => ({
