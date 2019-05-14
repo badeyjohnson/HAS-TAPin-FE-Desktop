@@ -22,6 +22,11 @@ export const getJobSites = async (jobNo) => {
   return data.sites
 }
 
+export const getSiteRiskAssessments = async (siteId) => {
+  const {data} = await axios.get(`${BASE_URL}sites/${siteId}/risk_assessments`);
+  return data.riskAssessments
+}
+
 export const getQuestions = async (siteId) => {
   const {data} = await axios.get(`${BASE_URL}sites/${siteId}/new_risk_assessment`);
   return data

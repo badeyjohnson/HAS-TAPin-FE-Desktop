@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-container>
-      <v-layout >
+      <v-layout>
         <v-avatar :tile="false" :size="100" color="grey lighten-4">
           <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
         </v-avatar>
@@ -14,13 +14,20 @@
 </template>
 
 <script>
+import * as api from "../api";
+
 export default {
   name: "JobHeader",
-  props: {
-    jobInfo: {
-      type: Object
-    }
+  data: () => ({
+    jobInfo: {}
+  }),
+  created() {
+    this.getJobInfo();
   },
-}
-
+  methods: {
+    async getJobInfo() {
+      this.jobInfo = await api.getSingleJob(this.$route.params.id);
+    }
+  }
+};
 </script>

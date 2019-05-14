@@ -2,10 +2,17 @@
   <v-card>
     <v-container>
       <v-layout>
-        <v-card-title primary-title>
-          <h3 class="headline mb-0">this is an example risk assessment card</h3>
-        </v-card-title>
-        <SiteAssessment/>
+        <v-flex xs12>
+          <ul>
+            <li v-for="n in numberOfRAs" :key="riskAssessments[n-1].site_specific_id">
+              <v-card-title primary-title>
+                <h3 class="headline mb-0">Created by: {{riskAssessments[n-1].user}}</h3>
+                <h3 class="headline mb-0">Created at: {{riskAssessments[n-1].created_at}}</h3>
+              </v-card-title>
+              <SiteAssessment/>
+            </li>
+          </ul>
+        </v-flex>
       </v-layout>
     </v-container>
   </v-card>
@@ -13,12 +20,40 @@
 
 <script>
 import SiteAssessment from "./SiteAssessment";
+import * as api from "../api";
 
 export default {
-  name: 'JobSiteRiskAssessment',
-  data: () => ({}),
+  name: "JobSiteRiskAssessment",
+  data: () => ({
+    riskAssessments: []
+  }),
   components: {
     SiteAssessment
   },
-}
+  props: {
+    siteId: {
+      type: Number
+    }
+  },
+  computed: {
+    numberOfRAs() {
+      return this.riskAssessments.length;
+    }
+  },
+  mounted() {
+    this.getRiskAssessments();
+  },
+  methods: {
+    async getRiskAssessments() {
+      this.riskAssessments = await api.getSiteRiskAssessments(this.siteId);
+      console.log(this.riskAssessments);
+    }
+  }
+};
 </script>
+<style scoped>
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+</style>

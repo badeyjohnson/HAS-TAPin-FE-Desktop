@@ -3,7 +3,7 @@
     <v-window v-model="onboarding">
       <v-window-item v-for="n in carouselLength" :key="`card-${n}`">
         <SiteInfo :info="siteDetails[n-1]"/>
-        <JobSiteRiskAssessment/>
+        <JobSiteRiskAssessment :siteId="siteDetails[n-1].site_id"/>
       </v-window-item>
     </v-window>
     <v-card-actions class="justify-space-between">
