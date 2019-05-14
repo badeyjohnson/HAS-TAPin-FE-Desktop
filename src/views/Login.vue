@@ -5,8 +5,15 @@
         <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
           <v-img :src="require('../assets/Arup-logo.png')" class="my-3" contain height="200"></v-img>
           <form>
-            <v-text-field v-model="email" label="E-mail" data-vv-name="email" required></v-text-field>
             <v-text-field
+              class="input-alpha"
+              v-model="email"
+              label="E-mail"
+              data-vv-name="email"
+              required
+            ></v-text-field>
+            <v-text-field
+              class="textbox"
               v-model="password"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
               label="Password"
@@ -25,19 +32,19 @@
 </template>
 
 <script>
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 import * as api from "../api";
 import router from "../routers/routes.js";
 
 export default {
   name: "Login",
   data: () => ({
-    email: "",
     password: "",
+    email: "",
     showPassword: false
   }),
   props: {
-    login: {
+    updateUser: {
       type: Function
     }
   },
@@ -48,10 +55,11 @@ export default {
     },
     async submit() {
       const user = await api.auth(this.email);
-      bcrypt.compare(this.password, user.password, function(err, res) {
+      bcrypt.compare(this.password, user.password, (err, res) => {
         if (res) {
-          localStorage.setItem("user", user);
+          localStorage.setItem("user", user.email);
           localStorage.setItem("isAuth", true);
+          this.updateUser(this.email);
           router.push({ path: "/dashboard" });
         }
       });
@@ -63,9 +71,5 @@ export default {
 <style scoped>
 .nav-link {
   text-decoration: none;
-}
-
-input:-internal-autofill-selected {
-  background-color: transparent;
 }
 </style>
