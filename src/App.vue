@@ -1,10 +1,8 @@
 <template>
   <v-app>
-    <Toolbar/>
+    <Toolbar :logout="logout"/>
     <v-content>
-      <router-view>
-        <!-- this is where the route matched will render-->
-      </router-view>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
@@ -18,6 +16,16 @@ export default {
   router,
   components: {
     Toolbar
+  },
+  mounted() {
+    this.auth = localStorage.getItem("isAuth") || false;
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem("isAuth");
+      localStorage.removeItem("user");
+    }
   }
 };
 </script>
