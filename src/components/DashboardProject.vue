@@ -1,19 +1,18 @@
 <template>
-  <v-card >
-    <v-container class="DashboardProject">
-      <v-layout>
-        <v-card-title primary-title>
-          <h1 class="headline mb-0">{{job.job_name}}</h1>
-          <h2 class="headline mb-0">{{job.job_no}}</h2>
-        </v-card-title>
-        <router-link class="nav-link" exact :to="{path: `job/${job.job_no}`}">
-          <v-card-text primary-title>
-            <a class="headline mb-0">Go to Job </a>
+  <router-link class="nav-link" exact :to="{path: `job/${job.job_no}`}">
+    <v-card :hover="true">
+      <v-container class="DashboardProject">
+        <v-layout align-center>
+          <v-card-title primary-title>
+            <h2 class="headline mb-1 pr-5">{{job.job_no}}</h2>
+          </v-card-title>
+          <v-card-text >
+            <h1 class="headline font-weight-bold">{{job.job_name}}</h1>
           </v-card-text>
-        </router-link>
-      </v-layout>
-    </v-container>
-  </v-card>
+        </v-layout>
+      </v-container>
+    </v-card>
+  </router-link>
 </template>
 
 <script>
@@ -22,8 +21,14 @@ export default {
   props: {
     job: {
       type: Object,
-      required: true,
+      required: true
     }
-  }
+  },
 };
 </script>
+
+<style scoped>
+.nav-link {
+  text-decoration: none;
+}
+</style>
