@@ -22,8 +22,15 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-layout justify-start align-end column v-if="this.job_no">
-              <v-btn class="headline mr-4" color="#696eb5" large flat @click="submit"><v-icon>add</v-icon>Create Job</v-btn>
+            <v-layout justify-start align-end column v-if="this.job_no && !this.existingJob">
+              <v-btn class="headline mr-4" color="#696eb5" large flat @click="submitNewJob">
+                <v-icon>add</v-icon>Create Job
+              </v-btn>
+            </v-layout>
+            <v-layout justify-start align-end column v-if="this.job_no && this.existingJob">
+              <v-btn class="headline mr-4" color="#696eb5" large flat @click="linkNewJob">
+                <v-icon>add</v-icon>Add Job
+              </v-btn>
             </v-layout>
           </v-layout>
           <v-layout v-if="this.job_no">
@@ -44,7 +51,13 @@
               ></v-text-field>
             </v-flex>
             <v-flex>
-              <v-text-field class="mr-4 ml-2" v-model="pm_last_name" label="PM last name" :rules="allRules" required></v-text-field>
+              <v-text-field
+                class="mr-4 ml-2"
+                v-model="pm_last_name"
+                label="PM last name"
+                :rules="allRules"
+                required
+              ></v-text-field>
               <v-text-field
                 class="mr-4 ml-2"
                 v-model="pm_number"
@@ -65,6 +78,11 @@ import * as api from "../api";
 
 export default {
   name: "CreateJob",
+  props: {
+    user: {
+      type: Object
+    }
+  },
   data: () => {
     return {
       job_no: null,
@@ -72,6 +90,7 @@ export default {
       pm_first_name: "",
       pm_last_name: "",
       pm_number: null,
+      existingJob: false,
       jnRules: [
         v => !!v || "Job number is required",
         v => (v && v.length <= 6) || "Please ignore project suffix"
@@ -93,8 +112,37 @@ export default {
     }
   },
   methods: {
-    async submit() {
-      const user = await api.auth(this.email);
+    submitNewJob() {
+      const jobDetails = {
+        job_no: this.job_no,
+        job_name: this.job_name,
+        pm_first_name: this.pm_first_name,
+        pm_last_name: this.pm_last_name,
+        pm_email: this.auto_pm_email,
+        pm_number: this.pm_number
+      };
+      api.createJob(this.user.email, jobDetails);
+    },
+    linkNewJob() {
+    }
+  },
+  watch: {
+    existingJob: function() {
+      console.log(this.existingJob, "<<<this");
+    },
+    job_no: async function() {
+      if (this.job_no.length === 6) {
+        console.log("computing");
+        const addedJob = await api.getSingleJob(this.job_no);
+        if (addedJob) {
+          console.log(addedJob);
+          this.job_name = addedJob.job_name;
+          this.pm_first_name = addedJob.pm_last_name;
+          this.pm_last_name = addedJob.pm_last_name;
+          this.pm_number = addedJob.pm_number;
+          this.existingJob = true;
+        }
+      }
     }
   }
 };

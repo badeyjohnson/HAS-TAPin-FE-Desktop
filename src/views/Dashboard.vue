@@ -14,7 +14,7 @@
         </v-list>
       </v-flex>
       <v-flex xs12>
-        <DashboardCreate/>
+        <DashboardCreate :user="user"/>
       </v-flex>
       <v-flex>
         <h3>Useful links</h3>
