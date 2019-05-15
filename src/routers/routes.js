@@ -26,7 +26,7 @@ const router = new VueRouter({
       component: () => import("../views/Job"),
     },
     {
-      path: "/site/create",
+      path: "/:site_id/risk_assessment/create",
       component: () => import("../views/Create"),
     }
   ]
