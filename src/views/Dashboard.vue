@@ -5,19 +5,18 @@
         <DashboardHeader :user="user"/>
       </v-flex>
       <v-flex xs12>
-        <v-list style="max-height: 50vh"
-       class="scroll-y">
-        <ul>
-          <li v-for="job in jobs" :key="job.job_no">
-            <DashboardProject :job="job"/>
-          </li>
-        </ul>
+        <v-list background-color="grey" style="max-height: 50vh" class="scroll-y">
+          <ul>
+            <li v-for="job in orderedJobs" :key="job.job_no" class="py-1">
+              <DashboardProject :job="job"/>
+            </li>
+          </ul>
         </v-list>
       </v-flex>
       <v-flex xs12>
-        <DashboardCreate/>
+        <DashboardCreate :user="user" :optimisticallyRender="optimisticallyRender"/>
       </v-flex>
-      <v-flex>
+      <!-- <v-flex>
         <h3>Useful links</h3>
         <ul>
           <li>
@@ -27,7 +26,7 @@
             <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
           </li>
         </ul>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
   </v-container>
 </template>
@@ -36,7 +35,7 @@
 import DashboardHeader from "../components/DashboardHeader";
 import DashboardProject from "../components/DashboardProject";
 import DashboardCreate from "../components/DashboardCreate";
-import * as api from '../api';
+import * as api from "../api";
 
 export default {
   name: "Dashboard",
@@ -45,18 +44,26 @@ export default {
       jobs: []
     };
   },
+  computed: {
+    orderedJobs: function() {
+      return this.jobs.sort((a, b) => a.job_no - b.job_no);
+    }
+  },
   props: {
-    user : {
+    user: {
       type: Object
     }
   },
   mounted() {
-    this.fetchJobs()
+    this.fetchJobs();
   },
   methods: {
     async fetchJobs() {
       const userJobs = await api.getJobs(this.user.email);
-      this.jobs = userJobs.jobs
+      this.jobs = userJobs.jobs;
+    },
+    optimisticallyRender(addedJobs) {
+      this.jobs.push(addedJobs)
     }
   },
   components: {
