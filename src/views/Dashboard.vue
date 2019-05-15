@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     orderedJobs: function() {
-      return this.jobs.sort((a, b) => a.job_no - b.job_no);
+      return this.jobs.slice().sort((a, b) => a.job_no - b.job_no);
     }
   },
   props: {

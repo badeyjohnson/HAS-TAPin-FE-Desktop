@@ -49,3 +49,7 @@ export const createJob = async (email, jobDetails) => {
 export const linkJob = async (email, jobNo) => {
   axios.post(`${BASE_URL}users/${email}/jobs/link`, jobNo);
 };
+
+export const createSite = async (jobNo, siteDetails) => {
+  axios.post(`${BASE_URL}jobs/${jobNo}/sites`, siteDetails);
+}
