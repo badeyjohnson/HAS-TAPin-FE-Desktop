@@ -156,9 +156,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.nav-link {
-  text-decoration: none;
-}
-</style>

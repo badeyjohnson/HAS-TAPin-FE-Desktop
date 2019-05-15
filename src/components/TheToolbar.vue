@@ -7,13 +7,13 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div v-if="this.$route.path === '/dashboard'">
+    <!-- <div v-if="this.$route.path === '/dashboard'">
     <router-link class="nav-link" exact to="/job/create">
       <v-btn flat>
         <span>+ Job</span>
       </v-btn>
     </router-link>
-    </div>
+    </div> -->
     <div v-if="this.$route.params.id">
     <router-link class="nav-link" exact :to="{path : `${this.$route.params.id}/site/create`}">
       <v-btn flat>
@@ -21,10 +21,10 @@
       </v-btn>
     </router-link>
     </div>
-    <div v-if="user.email">
-    <router-link class="nav-link" exact to="/login">
+    <div  v-if="user.email">
+    <router-link class="nav-link " exact to="/login">
       <v-btn flat>
-        <span class="mr-2" @click="logout">Logout</span>
+        <span @click="logout">Logout</span>
       </v-btn>
     </router-link>
     </div>

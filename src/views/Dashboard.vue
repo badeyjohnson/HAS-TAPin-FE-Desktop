@@ -16,7 +16,7 @@
       <v-flex xs12>
         <DashboardCreate :user="user" :optimisticallyRender="optimisticallyRender"/>
       </v-flex>
-      <v-flex>
+      <!-- <v-flex>
         <h3>Useful links</h3>
         <ul>
           <li>
@@ -26,7 +26,7 @@
             <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">H&amp;S sheet</a>
           </li>
         </ul>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
   </v-container>
 </template>
