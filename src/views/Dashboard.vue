@@ -14,7 +14,7 @@
         </v-list>
       </v-flex>
       <v-flex xs12>
-        <DashboardCreate :user="user"/>
+        <DashboardCreate :user="user" :optimisticallyRender="optimisticallyRender"/>
       </v-flex>
       <v-flex>
         <h3>Useful links</h3>
@@ -61,6 +61,9 @@ export default {
     async fetchJobs() {
       const userJobs = await api.getJobs(this.user.email);
       this.jobs = userJobs.jobs;
+    },
+    optimisticallyRender(addedJobs) {
+      this.jobs.push(addedJobs)
     }
   },
   components: {

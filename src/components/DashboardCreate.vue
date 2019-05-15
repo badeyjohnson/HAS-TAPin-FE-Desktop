@@ -2,7 +2,7 @@
   <v-card :hover="true">
     <v-container>
       <v-layout column>
-        <v-form>
+        <v-form ref="form">
           <v-layout row>
             <v-flex xs2 mx-4>
               <v-text-field
@@ -23,12 +23,12 @@
               ></v-text-field>
             </v-flex>
             <v-layout justify-start align-end column v-if="this.job_no && !this.existingJob">
-              <v-btn class="headline mr-4" color="#696eb5" large flat @click="submitNewJob">
+              <v-btn class="headline mr-4" color="#696eb5" large flat @click="newJob">
                 <v-icon>add</v-icon>Create Job
               </v-btn>
             </v-layout>
             <v-layout justify-start align-end column v-if="this.job_no && this.existingJob">
-              <v-btn class="headline mr-4" color="#696eb5" large flat @click="linkNewJob">
+              <v-btn class="headline mr-4" color="#696eb5" large flat @click="newJob">
                 <v-icon>add</v-icon>Add Job
               </v-btn>
             </v-layout>
@@ -81,6 +81,9 @@ export default {
   props: {
     user: {
       type: Object
+    },
+    optimisticallyRender: {
+      type: Function
     }
   },
   data: () => {
@@ -93,7 +96,8 @@ export default {
       existingJob: false,
       jnRules: [
         v => !!v || "Job number is required",
-        v => (v && v.length <= 6) || "Please ignore project suffix"
+        v => (v && v.length <= 6) || "Please ignore project suffix",
+        v => (v && /\d{6}/.test(v)) || "6 digit job number"
       ],
       emailRules: [
         v => !!v || "E-mail is required",
@@ -112,8 +116,18 @@ export default {
     }
   },
   methods: {
-    submitNewJob() {
-      const jobDetails = {
+    newJob() {
+      if (this.$refs.form.validate()) {
+        const jobDetails = this.createJobDetails();
+        this.optimisticallyRender(jobDetails);
+        this.$refs.form.reset();
+        this.existingJob
+          ? api.linkJob(this.user.email, this.job_no)
+          : api.createJob(this.user.email, jobDetails);
+      }
+    },
+    createJobDetails() {
+      return {
         job_no: this.job_no,
         job_name: this.job_name,
         pm_first_name: this.pm_first_name,
@@ -121,21 +135,16 @@ export default {
         pm_email: this.auto_pm_email,
         pm_number: this.pm_number
       };
-      api.createJob(this.user.email, jobDetails);
-    },
-    linkNewJob() {
     }
   },
   watch: {
-    existingJob: function() {
-      console.log(this.existingJob, "<<<this");
-    },
     job_no: async function() {
+      if (this.job_no.length === 5) {
+        this.existingJob = false;
+      }
       if (this.job_no.length === 6) {
-        console.log("computing");
         const addedJob = await api.getSingleJob(this.job_no);
         if (addedJob) {
-          console.log(addedJob);
           this.job_name = addedJob.job_name;
           this.pm_first_name = addedJob.pm_last_name;
           this.pm_last_name = addedJob.pm_last_name;
