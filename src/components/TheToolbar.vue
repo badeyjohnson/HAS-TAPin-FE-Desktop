@@ -2,7 +2,7 @@
   <v-toolbar app>
     <v-toolbar-title class="headline text-uppercase">
       <router-link class="nav-link" exact to="/dashboard">
-        <span>Tap</span>
+        <span >Tap</span>
         <span class="font-weight-light">In</span>
       </router-link>
     </v-toolbar-title>
@@ -47,6 +47,7 @@ export default {
 
 <style scoped>
 .nav-link {
+  color: #696eb5;
   text-decoration: none;
 }
 </style>
