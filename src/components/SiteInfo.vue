@@ -3,16 +3,18 @@
     <v-container>
       <v-layout>
         <v-card-title primary-title>
-          <h3 class="headline mb-0">Site name: {{info.site_id}}</h3>
+          <h3 class="headline mb-0">Site name: {{info.site_name}}</h3>
         </v-card-title>
         <v-btn flat @click="createRiskAssessment">+ Risk Assessment</v-btn>
       </v-layout>
+
     </v-container>
   </v-card>
 </template>
 
 <script>
 import router from "../routers/routes.js";
+
 export default {
   name: "SiteInfo",
   router,

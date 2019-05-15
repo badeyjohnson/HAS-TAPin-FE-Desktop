@@ -27,16 +27,22 @@
 <script>
 import SiteInfo from "./SiteInfo";
 import JobSiteRiskAssessment from "./JobSiteRiskAssessment";
-import * as api from "../api";
 
 export default {
   data: () => ({
     onboarding: 0,
-    siteDetails: []
   }),
   components: {
     SiteInfo,
     JobSiteRiskAssessment
+  },
+  props:{
+    siteDetails: {
+      type: Array
+    },
+    getSiteDetails: {
+      type: Function
+    }
   },
   computed: {
     carouselLength() {
@@ -49,15 +55,12 @@ export default {
   methods: {
     next() {
       this.onboarding =
-        this.onboarding + 1 === this.length ? 0 : this.onboarding + 1;
+        this.onboarding + 1 === this.carouselLength ? 0 : this.onboarding + 1;
     },
     prev() {
       this.onboarding =
-        this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
+        this.onboarding - 1 < 0 ? this.carouselLength - 1 : this.onboarding - 1;
     },
-    async getSiteDetails() {
-      this.siteDetails = await api.getJobSites(this.$route.params.id);
-    }
   }
 };
 </script>
