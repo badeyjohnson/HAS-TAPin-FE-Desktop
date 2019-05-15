@@ -46,8 +46,8 @@ export default {
           this.map.removeLayer(this.map._layers[i]);
         }
       }
-      const poly = L.polygon(this.polygon).addTo(this.map);
-      this.sendCoords(this.polygon)
+      L.polygon(this.polygon).addTo(this.map);
+      this.sendCoords && this.sendCoords(this.polygon)
     }
   },
 
@@ -82,10 +82,6 @@ export default {
           circlemarker: false,
           marker: false
         }
-        // edit: {
-        //   featureGroup: this.drawnItems,
-        //   remove: true,
-        // },
       });
       this.map.on(L.Draw.Event.CREATED, e => {
         const type = e.layerType;
@@ -93,7 +89,7 @@ export default {
         this.polygon = layer._latlngs;
       });
       const poly = L.polygon(this.boundary).addTo(this.map);
-      this.map.addControl(drawControl);
+      this.sendCoords && this.map.addControl(drawControl);
     },
     initLayers() {},
     addPolygon(layer) {
@@ -108,46 +104,3 @@ export default {
   height: 300pt;
 }
 </style>
-
-
-
-// const { Component } = window.React;
-// const { Map, TileLayer, Marker, Popup } = window.ReactLeaflet;
-
-// class EventsMap extends Component {
-
-//   componentDidMount() {
-//     const map = this.leafletMap.leafletElement;
-//     var drawnItems = new L.FeatureGroup();
-//     map.addLayer(drawnItems);
-//     const drawControl = new L.Control.Draw({
-//     position: 'topright',
-//     draw: {
-//       polygon: true,
-//     },
-//     edit: {
-//       featureGroup: drawnItems,
-//       remove: true,
-//     },
-//   });
-//   map.addControl(drawControl);
-//   map.on(L.Draw.Event.CREATED, (e) => {
-//     const type = e.layerType;
-//     const layer = e.layer;
-
-//     drawnItems.addLayer(layer);
-//   });
-//   map.on(L.Draw.Event.EDITED, (e) => {
-//     const layers = e.layers;
-//     let countOfEditedLayers = 0;
-//     console.log('LAYER EDITED:', layers)
-//     layers.eachLayer((layer) => {
-//       countOfEditedLayers++;
-//     });
-//    });
-//   }
-  
-//   handleClick(e) {
-//   	console.log(e);
-//   }
-  
