@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:9090/api/";
+const BASE_URL = "https://hastapin.appspot.com/api/";
 
 export const auth = async (email) => {
   const {data} = await axios.get(`${BASE_URL}users/${email}`);
@@ -20,6 +20,13 @@ export const getSingleJob = async (jobNo) => {
 export const getJobSites = async (jobNo) => {
   const {data} = await axios.get(`${BASE_URL}jobs/${jobNo}/sites`);
   return data.sites
+}
+
+export const postMapCoords = (siteId, coords) => {
+  axios.post(`${BASE_URL}maps/${siteId}`, {coordinates: coords});
+}
+export const postSiteRiskAssessment = (siteId, SSRA) => {
+  axios.post(`${BASE_URL}sites/${siteId}/risk_assessments`, SSRA);
 }
 
 export const getSiteRiskAssessments = async (siteId) => {

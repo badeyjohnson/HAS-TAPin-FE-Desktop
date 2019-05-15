@@ -4,123 +4,125 @@
       <v-flex xs12>
         <JobHeader/>
       </v-flex>
-      <!-- <v-dialog>
-        <router-view></router-view>
-      </v-dialog>-->
       <v-flex xs12>
-        <SiteMap :boundary="polygon"/>
+        <SiteMap :boundary="polygon" :sendCoords="fetchCoords"/>
         <v-form ref="form" v-model="valid" lazy-validation>
           <div v-for="(q, index) in questions" :key="q.question_id">
-            <div v-if="q.question_id === 1">
-              <v-text-field
-                v-model="dates[index]"
-                :counter="100"
-                :rules="nameRules"
-                :label="q.question"
-                required
-              ></v-text-field>
-            </div>
-            <div v-if="q.question_id >1 && q.question_id <= 10">
-              <v-text-field
-                v-model="multi[index]"
-                :counter="100"
-                :rules="nameRules"
-                :label="q.question"
-                required
-              ></v-text-field>
-            </div>
-            <div v-if="q.question_id >10 && q.question_id <= 33">
+            <v-card v-if="q.question_id <= 10" hover py-5 my-5>
+              <v-text-field v-model="multi[index]" :counter="100" :label="q.question" py-5 required></v-text-field>
+            </v-card>
+            <v-card v-if="q.question_id >10 && q.question_id <= 33" hover py-5>
               <span>{{q.question}}</span>
               <v-radio-group v-model="answers[index]" row>
-                <v-radio label="Yes" value="Yes"></v-radio>
-                <v-radio label="No" value="No"></v-radio>
-                <v-radio label="N/A" value="null"></v-radio>
+                <v-radio label="Yes" value=1></v-radio>
+                <v-radio label="No" value=2></v-radio>
+                <v-radio label="N/A" value=3></v-radio>
               </v-radio-group>
               <v-text-field
                 v-model="mitigations[index]"
                 :counter="300"
-                :rules="nameRules"
                 label="Mitigation measures"
                 required
               ></v-text-field>
               <span>Risk Level:</span>
               <v-radio-group v-model="riskLevels[index]" row>
-                <v-radio label="High" value="H"></v-radio>
-                <v-radio label="Mod" value="M"></v-radio>
-                <v-radio label="Low" value="L"></v-radio>
+                <v-radio label="High" value=3></v-radio>
+                <v-radio label="Mod" value=2></v-radio>
+                <v-radio label="Low" value=1></v-radio>
               </v-radio-group>
-            </div>
-            <div v-if="q.question_id === 34">
+            </v-card>
+            <v-card v-if="q.question_id === 34" hover>
               <v-layout row wrap>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
-              <v-flex xs12 sm2 md2>
-                <v-checkbox v-model="selected" label="John" value="John"></v-checkbox>
-                <v-checkbox v-model="selected" label="Jacob" value="Jacob"></v-checkbox>
-              </v-flex>
+                <v-flex grow>
+                  <v-checkbox v-model="ppe" label="Safety helmet" value="Safety helmet"></v-checkbox>
+                  <v-checkbox v-model="ppe" label="Safety boots" value="Safety boots"></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Safety wellington boots"
+                    value="Safety wellington boots"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Boiler suit / overalls"
+                    value="Boiler suit / overalls"
+                  ></v-checkbox>
+                  <v-checkbox v-model="ppe" label="Gloves" value="Gloves"></v-checkbox>
+                </v-flex>
+                <v-flex grow>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="High visibility trousers (Yellow)"
+                    value="High visibility trousers (Yellow)"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="High visibility jacket / vest (Yellow)"
+                    value="High visibility jacket / vest (Yellow)"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="High visibility trousers (Orange)"
+                    value="High visibility trousers (Orange)"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="High visibility jacket / vest (Orange)"
+                    value="High visibility jacket / vest (Orange)"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Goggles / visor / safety glasses"
+                    value="Goggles / visor / safety glasses"
+                  ></v-checkbox>
+                </v-flex>
+                <v-flex grow>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Hearing protection (ear plugs)"
+                    value="Hearing protection (ear plugs)"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Ear defenders (safety helmet)"
+                    value="Ear defenders (safety helmet)"
+                  ></v-checkbox>
+                  <v-checkbox v-model="ppe" label="First aid kit" value="First aid kit"></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Disinfectant hand wipes/gel"
+                    value="Disinfectant hand wipes/gel"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Respiratory protection"
+                    value="Respiratory protection"
+                  ></v-checkbox>
+                </v-flex>
+                <v-flex grow>
+                  <v-checkbox v-model="ppe" label="Mobile phone" value="Mobile phone"></v-checkbox>
+                  <v-checkbox v-model="ppe" label="Satellite phone" value="Satellite phone"></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Torch + spare batteries"
+                    value="Torch + spare batteries"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Head torch + spare batteries"
+                    value="Head torch + spare batteries"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="ppe"
+                    label="Four-point chin strap"
+                    value="Four-point chin strap"
+                  ></v-checkbox>
+                </v-flex>
               </v-layout>
-            </div>
-            <!-- <v-text-field
-              v-model="answers[index]"
-              :counter="10"
-              :rules="nameRules"
-              :label="q.question"
-              required
-            ></v-text-field>-->
+            </v-card>
+            <v-card v-if="q.question_id === 35" hover py-5 my-5>
+              <v-text-field v-model="multi[index]" :counter="400" :label="q.question" py-5 required></v-text-field>
+            </v-card>
           </div>
-          <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
-
-          <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-
-          <v-select
-            v-model="select"
-            :items="items"
-            :rules="[v => !!v || 'Item is required']"
-            label="Item"
-            required
-          ></v-select>
 
           <v-checkbox
             v-model="checkbox"
@@ -129,21 +131,8 @@
             required
           ></v-checkbox>
 
-          <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
+          <v-btn :disabled="!valid" color="success" @click="submitSSRA">Submit</v-btn>
         </v-form>
-        <v-card>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">{{ questions[0].question }}</h3>
-              <div>{{ questions[0].question }}</div>
-            </div>
-          </v-card-title>
-
-          <v-card-actions>
-            <v-btn flat color="orange">Share</v-btn>
-            <v-btn flat color="orange">Explore</v-btn>
-          </v-card-actions>
-        </v-card>
       </v-flex>
     </v-layout>
   </v-container>
@@ -153,37 +142,28 @@
 import JobHeader from "../components/JobHeader";
 import SiteMap from "../components/SiteMap";
 import * as api from "../api";
+import * as util from "../util";
 
 export default {
   name: "Site",
   data() {
     return {
       valid: true,
+      user: "jonny.bravo@arup.com",
+      site_id: 1,
       polygon: [[]],
       questions: [],
-      dates: [],
       multi: [],
       answers: [],
       mitigations: [],
       riskLevels: [],
-      name: "",
-      nameRules: [
-        v => !!v || "Name is required",
-        v => (v && v.length <= 10) || "Name must be less than 10 characters"
-      ],
-      email: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
-      ],
-      select: null,
-      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+      ppe: [],
       checkbox: false
     };
   },
   watch: {
-    answers: function() {
-      console.log(this.answers, "<<<this");
+    polygon: function() {
+      console.log(this.polygon, "<<< poly");
     }
   },
 
@@ -192,6 +172,20 @@ export default {
   },
 
   methods: {
+    submitSSRA() {
+      const postSSRA = util.formatSSRA(
+        this.user,
+        this.questions,
+        this.multi,
+        this.answers,
+        this.mitigations,
+        this.riskLevels,
+        this.ppe
+      );
+      console.log(postSSRA, '<<< SSRA')
+      api.postSiteRiskAssessment(this.site_id, postSSRA)
+      api.postMapCoords(this.site_id, this.polygon)
+    },
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
@@ -199,8 +193,15 @@ export default {
     },
     async fetchQuestions() {
       const questions = await api.getQuestions(1);
-      console.log(questions, "<<< Qs");
       this.questions = questions;
+    },
+    fetchCoords(coords) {
+      this.polygon = coords[0].map(coord => {
+        return {
+          latitude: coord.lat,
+          longitude: coord.lng
+        };
+      });
     }
   },
 
@@ -210,39 +211,3 @@ export default {
   }
 };
 </script>
-
-data: () => ({
-    valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters'
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid'
-    ],
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4'
-    ],
-    checkbox: false
-  }),
-
-  methods: {
-    validate () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
-    }
-  }

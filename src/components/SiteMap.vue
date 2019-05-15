@@ -26,7 +26,10 @@ export default {
     },
     boundary: {
       type: Array
-    }
+    },
+    sendCoords: {
+      type: Function
+    },
   },
   data: () => ({
     map: null,
@@ -44,6 +47,7 @@ export default {
         }
       }
       const poly = L.polygon(this.polygon).addTo(this.map);
+      this.sendCoords(this.polygon)
     }
   },
 
@@ -54,7 +58,6 @@ export default {
 
   methods: {
     initMap() {
-      console.log(this.polygon, "<< polygon");
       this.map = L.map(this.$refs["mapElement"]).setView(
         [53.7947616, -1.5468854],
         14
@@ -89,7 +92,6 @@ export default {
         const layer = e.layer;
         this.polygon = layer._latlngs;
       });
-      console.log(this.polygon);
       const poly = L.polygon(this.boundary).addTo(this.map);
       this.map.addControl(drawControl);
     },
