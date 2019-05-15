@@ -48,6 +48,15 @@ export default {
       }
       L.polygon(this.polygon).addTo(this.map);
       this.sendCoords && this.sendCoords(this.polygon)
+    },
+    boundary: function() {
+      for (let i in this.map._layers) {
+        if (this.map._layers[i]._path != undefined) {
+          this.map.removeLayer(this.map._layers[i]);
+        }
+      }
+      L.polygon(this.boundary).addTo(this.map);
+      this.sendCoords && this.sendCoords(this.boundary)
     }
   },
 

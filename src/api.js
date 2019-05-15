@@ -22,6 +22,11 @@ export const getJobSites = async jobNo => {
   return data.sites;
 };
 
+export const getMapCoords = async siteId => {
+  const { data } = await axios.get(`${BASE_URL}maps/${siteId}`);
+  return JSON.parse(data.map[data.map.length - 1].coordinates);
+};
+
 export const postMapCoords = (siteId, coords) => {
   axios.post(`${BASE_URL}maps/${siteId}`, {coordinates: coords});
 }
