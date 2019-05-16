@@ -6,6 +6,12 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [
     {
+      path: "/",
+      beforeEnter: (to, from , next) => {
+        next("/login")
+      }
+    },
+    {
       path: "/dashboard",
       component: () => import("../views/Dashboard"),
       beforeEnter: requireAuth

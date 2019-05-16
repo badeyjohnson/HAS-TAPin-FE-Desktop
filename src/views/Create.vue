@@ -23,14 +23,15 @@ export default {
     };
   },
   mounted() { 
-      this.fetchPolygon()
+    this.fetchPolygon()
   },
   methods: {
     async fetchPolygon() {
-      const response = await api.getMapCoords(this.$route.params.site_id)
-      if (response) {
-        this.polygon = response.map(point => [point.latitude, point.longitude])
-      }
+      const coords = await api.getMapCoords(this.$route.params.site_id);
+      this.polygon = coords.map(coord => {
+        const coordsRefactor = [coord.latitude, coord.longitude];
+        return coordsRefactor;
+      });
     }
   },
 

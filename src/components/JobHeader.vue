@@ -42,10 +42,10 @@ export default {
   },
   computed: {
     upperFirstName: function() {
-      return this.jobInfo.pm_first_name.charAt(0).toUpperCase() + this.jobInfo.pm_first_name.slice(1)
+      if (this.jobInfo.pm_first_name) this.jobInfo.pm_first_name.charAt(0).toUpperCase() + this.jobInfo.pm_first_name.slice(1)
     },
     upperLastName: function() {
-      return this.jobInfo.pm_last_name.charAt(0).toUpperCase() + this.jobInfo.pm_last_name.slice(1)
+      if (this.jobInfo.pm_last_name) this.jobInfo.pm_last_name.charAt(0).toUpperCase() + this.jobInfo.pm_last_name.slice(1)
     }
   },
   created() {
