@@ -96,7 +96,6 @@ export default {
       L.drawLocal.draw.handlers.polygon.tooltip.start = 'Click to start';
       this.map.on(L.Draw.Event.CREATED, e => {
         const layer = e.layer;
-        console.log(layer)
         this.polygon = layer._latlngs;
       });
       L.polygon(this.boundary).addTo(this.map);
