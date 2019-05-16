@@ -1,6 +1,6 @@
 <template>
   <div class="text-xs-center">
-    <v-dialog v-model="dialog" width="900">
+    <v-dialog v-model="dialog" width="1200">
       <template v-slot:activator="{ on }">
         <v-btn color="#696eb5" dark v-on="on">risk assessment</v-btn>
       </template>
