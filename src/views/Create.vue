@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12>
-        <SiteMap :boundary="polygon" :sendCoords="fetchCoords"/>
+        <SiteMap :boundary="polygon"/>
         <CreateForm :coords="polygon"/>
       </v-flex>
     </v-layout>
@@ -12,6 +12,7 @@
 <script>
 import SiteMap from "../components/SiteMap";
 import CreateForm from "../components/CreateForm";
+import * as api from "../api";
 
 export default {
   name: "Site",
@@ -21,14 +22,15 @@ export default {
       polygon: [[]],
     };
   },
+  mounted() { 
+      this.fetchPolygon()
+  },
   methods: {
-    fetchCoords(coords) {
-      this.polygon = coords[0].map(coord => {
-        return {
-          latitude: coord.lat,
-          longitude: coord.lng
-        };
-      });
+    async fetchPolygon() {
+      const response = await api.getMapCoords(this.$route.params.site_id)
+      if (response) {
+        this.polygon = response.map(point => [point.latitude, point.longitude])
+      }
     }
   },
 
