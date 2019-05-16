@@ -1,35 +1,29 @@
 <template>
-  <v-card>
+  <v-card color="grey lighten-2">
     <v-container>
-      <v-layout align-center justify-space-between row fill-height>
-        <v-card-title primary-title>
-          <h3 class="headline mb-0">Site name: {{info.site_name}}</h3>
+      <v-layout align-start justify-space-around column fill-height>
+        <v-card-title primary-title >
+          <div>
+          <h3 class="headline mb-0">Site: {{info.site_name}}</h3>
+          <div>
+          <span>{{info.site_description}}</span>
+          </div>
+          </div>
         </v-card-title>
-        <v-btn flat @click="createRiskAssessment">+ Risk Assessment</v-btn>
       </v-layout>
-
     </v-container>
   </v-card>
 </template>
 
 <script>
-import router from "../routers/routes.js";
 
 export default {
   name: "SiteInfo",
-  router,
   props: {
     info: {
       type: Object
     }
   },
-  methods: {
-    createRiskAssessment() {
-      router.push({
-        path: `/${this.info.site_id}/risk_assessment/create`,
-      });
-    }
-  }
 };
 </script>
 

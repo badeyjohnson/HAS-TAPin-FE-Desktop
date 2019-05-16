@@ -107,12 +107,15 @@ export default {
     };
   },
   computed: {
-    auto_pm_email: function() {
-      const lower_firstName = this.pm_first_name.toLowerCase();
-      const lower_lastName = this.pm_last_name.toLowerCase();
-      return this.pm_first_name || this.pm_last_name
-        ? `${lower_firstName}.${lower_lastName}@arup.com`
-        : "";
+    auto_pm_email: {
+      get: function() {
+        const lower_firstName = this.pm_first_name.toLowerCase();
+        const lower_lastName = this.pm_last_name.toLowerCase();
+        return this.pm_first_name || this.pm_last_name
+          ? `${lower_firstName}.${lower_lastName}@arup.com`
+          : "";
+      },
+      set: function() {}
     }
   },
   methods: {
@@ -120,10 +123,10 @@ export default {
       if (this.$refs.form.validate()) {
         const jobDetails = this.createJobDetails();
         this.optimisticallyRender(jobDetails);
-        this.$refs.form.reset();
         this.existingJob
           ? api.linkJob(this.user.email, this.job_no)
           : api.createJob(this.user.email, jobDetails);
+        this.$refs.form.reset();
       }
     },
     createJobDetails() {
@@ -139,14 +142,14 @@ export default {
   },
   watch: {
     job_no: async function() {
-      if (this.job_no.length === 5) {
+      if (this.job_no.toString().length === 5) {
         this.existingJob = false;
       }
-      if (this.job_no.length === 6) {
+      if (this.job_no.toString().length === 6) {
         const addedJob = await api.getSingleJob(this.job_no);
         if (addedJob) {
           this.job_name = addedJob.job_name;
-          this.pm_first_name = addedJob.pm_last_name;
+          this.pm_first_name = addedJob.pm_first_name;
           this.pm_last_name = addedJob.pm_last_name;
           this.pm_number = addedJob.pm_number;
           this.existingJob = true;

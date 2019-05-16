@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on }">
       <v-layout justify-end>
-        <v-btn flat v-on="on">+ Site</v-btn>
+        <v-btn class="white--text" flat v-on="on">+ Site</v-btn>
       </v-layout>
     </template>
     <v-card>
@@ -20,7 +20,7 @@
             <v-layout row>
               <v-flex xs12>
                 <v-text-field
-                  class="headline font-weight-bold px-3"
+                  class="px-3"
                   v-model="site_name"
                   @blur="checkSiteName"
                   @focus="resetRule"
@@ -29,12 +29,13 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  class="px-3"
+                  class="px-3 pb-4"
                   v-model="site_description"
                   label="Description"
                   :rules="allRules"
                   required
                 ></v-text-field>
+                <span class="font-weight-light px-3">Please draw a site boundary below</span>
                 <SiteMap :rerender="dialog" :boundary="polygon" :sendCoords="fetchCoords"/>
               </v-flex>
             </v-layout>
@@ -56,9 +57,10 @@ export default {
       dialog: false,
       site_name: "",
       site_description: "",
-      polygon: [[]],
+      polygon: [],
+      createdPolygon: [],
       allRules: [v => !!v || "Required"],
-      blurRule: [v => !!v || "Required"]
+      blurRule: []
     };
   },
   props: {
@@ -70,13 +72,16 @@ export default {
     SiteMap
   },
   methods: {
-    newSite() {
-      if (this.$refs.form.validate()) {
-        api.createSite(this.$route.params.id, {
+    async newSite() {
+      if (this.$refs.form.validate() && this.createdPolygon.length) {
+        const addedSite = await api.createSite(this.$route.params.id, {
           site_name: this.site_name,
           site_description: this.site_description
         });
+
+        api.postMapCoords(addedSite.site_id, this.createdPolygon)
         this.optimisticRender({
+          site_id: addedSite.site_id,
           job_no: this.$route.params.id,
           site_name: this.site_name,
           site_description: this.site_description
@@ -93,11 +98,10 @@ export default {
         : [v => !!v || "Required"];
     },
     resetRule() {
-      this.blurRule = [v => !!v || "Required"];
+      this.blurRule = [];
     },
     fetchCoords(coords) {
-      console.log(coords)
-      coords[0].map(coord => {
+      this.createdPolygon = coords[0].map(coord => {
         return {
           latitude: coord.lat,
           longitude: coord.lng
