@@ -1,7 +1,7 @@
 <template>
-  <v-card color="black" dark flat tile>
-    <v-window v-model="onboarding">
-      <v-window-item v-for="n in carouselLength" :key="`card-${n}`">
+  <v-card color="grey lighten-2" light flat tile>
+    <v-window   v-model="onboarding">
+      <v-window-item v-for="n in carouselLength" :key="`card-${n}`" >
         <SiteInfo :info="siteDetails[n-1]"/>
         <JobSiteRiskAssessment :siteId="siteDetails[n-1].site_id"/>
       </v-window-item>
@@ -12,7 +12,7 @@
       </v-btn>
       <v-item-group v-model="onboarding" class="text-xs-center" mandatory>
         <v-item v-for="n in carouselLength" :key="`btn-${n}`">
-          <v-btn slot-scope="{ active, toggle }" :input-value="active" icon @click="toggle" color="grey darken-2">
+          <v-btn slot-scope="{ active, toggle }" :input-value="active" icon @click="toggle" color="grey lighten-2">
             <v-icon>panorama_fish_eye</v-icon>
           </v-btn>
         </v-item>

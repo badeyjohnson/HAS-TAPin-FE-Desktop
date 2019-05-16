@@ -1,9 +1,14 @@
 <template>
-  <v-card>
+  <v-card color="grey lighten-2">
     <v-container>
-      <v-layout align-center justify-space-between row fill-height>
-        <v-card-title primary-title>
-          <h3 class="headline mb-0">Site name: {{info.site_name}}</h3>
+      <v-layout align-start justify-space-around column fill-height>
+        <v-card-title primary-title >
+          <div>
+          <h3 class="headline mb-0">Site: {{info.site_name}}</h3>
+          <div>
+          <span>{{info.site_description}}</span>
+          </div>
+          </div>
         </v-card-title>
       </v-layout>
     </v-container>

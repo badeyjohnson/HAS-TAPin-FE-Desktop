@@ -3,14 +3,22 @@
     <v-container>
       <v-layout>
         <v-flex xs12>
-          <v-list style="height: 35vh" class="scroll-y">
-            <ul>
-              <li v-for="n in numberOfRAs" :key="riskAssessments[n-1].site_specific_id">
-                <v-card-title primary-title>
-                  <h3 class="headline mb-0">Created by: {{riskAssessments[n-1].user}}</h3>
-                  <h3 class="headline mb-0">Created at: {{riskAssessments[n-1].created_at}}</h3>
+          <v-list style="height: 35vh" class="scroll-y" >
+            <ul >
+              <li v-for="n in numberOfRAs" :key="riskAssessments[n-1].site_specific_id" >
+                <v-card hover class="my-2">
+                <v-card-title primary-title justify-space-around>
+                  <div >
+                  <span class="font-weight-light title mb-0">Created by: {{riskAssessments[n-1].user}}</span><br>
+                  <span class="font-weight-light subheading mb-0">Date: {{formattedDates[n-1]}}</span>
+                  </div>
+                  <v-spacer></v-spacer>
+                <SiteAssessment
+                  :siteId="siteId"
+                  :siteRiskId="riskAssessments[n-1].site_specific_id"
+                />
                 </v-card-title>
-                <SiteAssessment :siteId="siteId" :siteRiskId="riskAssessments[n-1].site_specific_id"/>
+                </v-card>
               </li>
             </ul>
           </v-list>
@@ -24,6 +32,7 @@
 </template>
 
 <script>
+import * as util from "../util";
 import SiteAssessment from "./SiteAssessment";
 import * as api from "../api";
 import router from "../routers/routes.js";
@@ -33,7 +42,8 @@ export default {
 
   router,
   data: () => ({
-    riskAssessments: []
+    riskAssessments: [],
+    formattedDates: []
   }),
   components: {
     SiteAssessment
@@ -53,7 +63,13 @@ export default {
   },
   methods: {
     async getRiskAssessments() {
-      this.riskAssessments = await api.getSiteRiskAssessments(this.siteId);
+      const response = await api.getSiteRiskAssessments(this.siteId);
+      console.log(response, 'response')
+      this.riskAssessments = response.sort((a, b) => b.created_at - a.created_at)
+      console.log(this.riskAssessments, 'ra')
+      this.formattedDates = this.riskAssessments.map(assessment => {
+        return util.dateConverter(assessment.created_at);
+      });
     },
     createRiskAssessment() {
       router.push({

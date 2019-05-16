@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" width="500">
     <template v-slot:activator="{ on }">
       <v-layout justify-end>
-        <v-btn flat v-on="on">+ Site</v-btn>
+        <v-btn class="white--text" flat v-on="on">+ Site</v-btn>
       </v-layout>
     </template>
     <v-card>
@@ -20,7 +20,7 @@
             <v-layout row>
               <v-flex xs12>
                 <v-text-field
-                  class="headline font-weight-bold px-3"
+                  class="px-3"
                   v-model="site_name"
                   @blur="checkSiteName"
                   @focus="resetRule"
@@ -29,12 +29,13 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  class="px-3"
+                  class="px-3 pb-4"
                   v-model="site_description"
                   label="Description"
                   :rules="allRules"
                   required
                 ></v-text-field>
+                <span class="font-weight-light px-3">Please draw a site boundary below</span>
                 <SiteMap :rerender="dialog" :boundary="polygon" :sendCoords="fetchCoords"/>
               </v-flex>
             </v-layout>
