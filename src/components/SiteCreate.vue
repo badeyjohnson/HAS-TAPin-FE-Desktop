@@ -6,10 +6,12 @@
       </v-layout>
     </template>
     <v-card>
-      <v-card-title class="headline grey lighten-2 px-4 justify-space-between" primary-title>
-        Add Site
+      <v-card-title class="headline grey lighten-2 pa-2 justify-space-between" primary-title>
+        <v-btn class="headline pl-3" color="#696eb5" large flat @click="newSite">
+          <v-icon>add</v-icon>Create Site
+        </v-btn>
         <v-card-actions>
-          <v-btn class="mx=0" color="black" flat @click="dialog = false">Close</v-btn>
+          <v-btn class="px-2" color="black" flat @click="closePopup">Close</v-btn>
         </v-card-actions>
       </v-card-title>
       <v-container>
@@ -18,7 +20,7 @@
             <v-layout row>
               <v-flex xs12>
                 <v-text-field
-                  class="headline font-weight-bold"
+                  class="headline font-weight-bold px-3"
                   v-model="site_name"
                   @blur="checkSiteName"
                   @focus="resetRule"
@@ -27,17 +29,13 @@
                   required
                 ></v-text-field>
                 <v-text-field
-                  class="mx-12"
+                  class="px-3"
                   v-model="site_description"
                   label="Description"
                   :rules="allRules"
                   required
                 ></v-text-field>
-                <v-layout justify-end>
-                  <v-btn class="headline" color="#696eb5" large flat @click="newJob">
-                    <v-icon>add</v-icon>Create Site
-                  </v-btn>
-                </v-layout>
+                <SiteMap :rerender="dialog" :boundary="polygon" :sendCoords="fetchCoords"/>
               </v-flex>
             </v-layout>
           </v-form>
@@ -48,6 +46,7 @@
 </template>
 
 <script>
+import SiteMap from "./SiteMap";
 import * as api from "../api";
 
 export default {
@@ -57,8 +56,9 @@ export default {
       dialog: false,
       site_name: "",
       site_description: "",
+      polygon: [[]],
       allRules: [v => !!v || "Required"],
-      blurRule: []
+      blurRule: [v => !!v || "Required"]
     };
   },
   props: {
@@ -66,8 +66,11 @@ export default {
       type: Function
     }
   },
+  components: {
+    SiteMap
+  },
   methods: {
-    newJob() {
+    newSite() {
       if (this.$refs.form.validate()) {
         api.createSite(this.$route.params.id, {
           site_name: this.site_name,
@@ -86,11 +89,24 @@ export default {
       const exisitingSites = await api.getJobSites(this.$route.params.id);
       const exisitingSiteNames = exisitingSites.map(site => site.site_name);
       this.blurRule = exisitingSiteNames.includes(this.site_name)
-        ? [v => "Site already included for this Job"]
+        ? [() => "Site already included for this Job"]
         : [v => !!v || "Required"];
     },
     resetRule() {
-      this.blurRule = [];
+      this.blurRule = [v => !!v || "Required"];
+    },
+    fetchCoords(coords) {
+      console.log(coords)
+      coords[0].map(coord => {
+        return {
+          latitude: coord.lat,
+          longitude: coord.lng
+        };
+      });
+    },
+    closePopup() {
+      this.dialog = false;
+      this.$refs.form.reset();
     }
   }
 };

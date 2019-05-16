@@ -8,17 +8,17 @@
     </v-window>
     <v-card-actions class="justify-space-between">
       <v-btn flat @click="prev">
-        <v-icon>mdi-chevron-left</v-icon>
+        <v-icon>arrow_back_ios</v-icon>
       </v-btn>
       <v-item-group v-model="onboarding" class="text-xs-center" mandatory>
         <v-item v-for="n in carouselLength" :key="`btn-${n}`">
-          <v-btn slot-scope="{ active, toggle }" :input-value="active" icon @click="toggle">
-            <v-icon>mdi-record</v-icon>
+          <v-btn slot-scope="{ active, toggle }" :input-value="active" icon @click="toggle" color="grey darken-2">
+            <v-icon>panorama_fish_eye</v-icon>
           </v-btn>
         </v-item>
       </v-item-group>
       <v-btn flat @click="next">
-        <v-icon>mdi-chevron-right</v-icon>
+        <v-icon>arrow_forward_ios</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -30,13 +30,13 @@ import JobSiteRiskAssessment from "./JobSiteRiskAssessment";
 
 export default {
   data: () => ({
-    onboarding: 0,
+    onboarding: 0
   }),
   components: {
     SiteInfo,
     JobSiteRiskAssessment
   },
-  props:{
+  props: {
     siteDetails: {
       type: Array
     },
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     carouselLength() {
-      return this.siteDetails.length
+      return this.siteDetails.length;
     }
   },
   created() {
@@ -60,7 +60,7 @@ export default {
     prev() {
       this.onboarding =
         this.onboarding - 1 < 0 ? this.carouselLength - 1 : this.onboarding - 1;
-    },
+    }
   }
 };
 </script>
