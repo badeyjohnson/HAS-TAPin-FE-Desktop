@@ -50,13 +50,13 @@ export default {
       this.sendCoords && this.sendCoords(this.polygon)
     },
     boundary: function() {
-      for (let i in this.map._layers) {
-        if (this.map._layers[i]._path != undefined) {
-          this.map.removeLayer(this.map._layers[i]);
-        }
-      }
+      // for (let i in this.map._layers) {
+      //   if (this.map._layers[i]._path != undefined) {
+      //     this.map.removeLayer(this.map._layers[i]);
+      //   }
+      // }
       L.polygon(this.boundary).addTo(this.map);
-      this.sendCoords && this.sendCoords(this.boundary)
+      // this.sendCoords && this.sendCoords(this.boundary)
     }
   },
 
@@ -92,19 +92,20 @@ export default {
           marker: false
         }
       });
+      L.drawLocal.draw.toolbar.buttons.polygon = '';
+      L.drawLocal.draw.handlers.polygon.tooltip.start = 'Click to start';
       this.map.on(L.Draw.Event.CREATED, e => {
-        const type = e.layerType;
         const layer = e.layer;
         console.log(layer)
         this.polygon = layer._latlngs;
       });
-      const poly = L.polygon(this.boundary).addTo(this.map);
+      L.polygon(this.boundary).addTo(this.map);
       this.sendCoords && this.map.addControl(drawControl);
     },
     initLayers() {},
-    addPolygon(layer) {
-      this.polygon = layer;
-    }
+    // addPolygon(layer) {
+    //   this.polygon = layer;
+    // }
   }
 };
 </script>
