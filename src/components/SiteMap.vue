@@ -113,5 +113,6 @@ export default {
 <style scoped>
 #mapid {
   height: 300pt;
+  z-index: 1;
 }
 </style>
