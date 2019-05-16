@@ -112,6 +112,7 @@
 <script>
 import JobHeader from "../components/JobHeader";
 import SiteMap from "../components/SiteMap";
+import router from "../routers/routes.js";
 import * as api from "../api";
 import * as util from "../util";
 
@@ -143,6 +144,7 @@ export default {
       checkbox: false
     };
   },
+  router,
   watch: {
     SSRA: function() {
       const answers = this.SSRA.map(question => {
@@ -194,8 +196,10 @@ export default {
         this.riskLevels,
         this.ppe
       );
-      api.postSiteRiskAssessment(this.site_id, postSSRA);
-      api.postMapCoords(this.site_id, this.coords);
+      const siteIdPresent = this.site_id ? this.site_id : this.$route.params.site_id;
+      api.postSiteRiskAssessment(siteIdPresent, postSSRA);
+      api.postMapCoords(siteIdPresent, this.coords);
+      router.go(-1)
     },
     validate() {
       if (this.$refs.form.validate()) {
