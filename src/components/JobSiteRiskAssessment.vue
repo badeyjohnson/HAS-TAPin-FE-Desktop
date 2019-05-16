@@ -10,7 +10,7 @@
                   <h3 class="headline mb-0">Created by: {{riskAssessments[n-1].user}}</h3>
                   <h3 class="headline mb-0">Created at: {{riskAssessments[n-1].created_at}}</h3>
                 </v-card-title>
-                <SiteAssessment/>
+                <SiteAssessment :siteId="siteId" :siteRiskId="riskAssessments[n-1].site_specific_id"/>
               </li>
             </ul>
           </v-list>

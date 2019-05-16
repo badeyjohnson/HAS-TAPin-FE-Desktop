@@ -105,14 +105,7 @@
       </v-card>
     </div>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
-
-    <v-btn :disabled="!valid" color="success" @click="submitSSRA">Submit</v-btn>
+    <v-btn v-if="!SSRA" :disabled="!valid" color="success" @click="submitSSRA">Submit</v-btn>
   </v-form>
 </template>
 
@@ -130,6 +123,9 @@ export default {
     },
     SSRA: {
       type: Array
+    },
+    site_id: {
+      type: Number
     }
   },
 
@@ -137,7 +133,6 @@ export default {
     return {
       valid: true,
       user: "jonny.bravo@arup.com",
-      site_id: 1,
       polygon: [[]],
       questions: [],
       multi: [],
@@ -150,22 +145,42 @@ export default {
   },
   watch: {
     SSRA: function() {
-      this.answers = this.SSRA.map(question => {
+      const answers = this.SSRA.map(question => {
         if (question.answer === "Y") {
-          return 1;
+          return "1";
         } else if (question.answer === "N") {
-          return 2;
+          return "2";
         } else if (question.answer === "N/A") {
-          return 3;
+          return "3";
         } else return null;
       });
-      console.log(this.answers, "<<< answers");
+      this.answers = answers;
+      const riskLevels = this.SSRA.map(question => {
+        if (question.risk === "L") {
+          return "1";
+        } else if (question.risk === "M") {
+          return "2";
+        } else if (question.risk === "H") {
+          return "3";
+        } else return null;
+      });
+      this.riskLevels = riskLevels;
+      const mitigations = this.SSRA.map(
+        question => question.mitigation_Measures
+      );
+      this.mitigations = mitigations;
+      const multi = this.SSRA.map((question, index) => {
+        if (question.question_id === 34) {
+          this.ppe = JSON.parse(question.multi_option);
+          return null;
+        } else return question.multi_option;
+      });
+      this.multi = multi;
     }
   },
 
   mounted() {
     this.fetchQuestions();
-    this.answers = [null, null, null, null, null, null, null, null, null, null, '1', '1', '1', 2, '1', 2, '1', 2, 2, 2, '1', 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, null, null]
   },
 
   methods: {
