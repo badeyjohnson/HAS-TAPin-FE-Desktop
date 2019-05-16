@@ -14,6 +14,9 @@
               </li>
             </ul>
           </v-list>
+          <div v-if="!numberOfRAs">
+            <v-btn flat @click="createRiskAssessment">+ Risk Assessment</v-btn>
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -23,9 +26,12 @@
 <script>
 import SiteAssessment from "./SiteAssessment";
 import * as api from "../api";
+import router from "../routers/routes.js";
 
 export default {
   name: "JobSiteRiskAssessment",
+
+  router,
   data: () => ({
     riskAssessments: []
   }),
@@ -48,6 +54,11 @@ export default {
   methods: {
     async getRiskAssessments() {
       this.riskAssessments = await api.getSiteRiskAssessments(this.siteId);
+    },
+    createRiskAssessment() {
+      router.push({
+        path: `/${this.siteId}/risk_assessment/create`
+      });
     }
   }
 };
