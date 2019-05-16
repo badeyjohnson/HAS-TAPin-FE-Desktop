@@ -5,9 +5,8 @@
         <v-btn color="#696eb5" dark v-on="on">risk assessment</v-btn>
       </template>
       <v-card >
-        <v-card-title class="headline grey lighten-2" primary-title>Site information</v-card-title>
-        <v-card-text>This card should have a map, information about the latest risk assessment, list of people who have filled it out etc</v-card-text>
-        <SiteMap :rerender=" dialog " :boundary="polygon"/>
+        <v-card-title class="headline grey lighten-2" primary-title>Site Specific Risk Assessment</v-card-title>
+        <SiteMap :rerender="dialog " :boundary="polygon"/>
         <CreateForm :SSRA="riskData" :site_id="siteId"/>
         <v-divider></v-divider>
         <v-card-actions>

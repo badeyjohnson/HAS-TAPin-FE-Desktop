@@ -36,7 +36,7 @@
                   required
                 ></v-text-field>
                 <span class="font-weight-light px-3">Please draw a site boundary below</span>
-                <SiteMap :rerender="dialog" :boundary="polygon" :sendCoords="fetchCoords"/>
+                <SiteMap :rerender="dialog" :boundary="polygon" :sendCoords="sendCoords"/>
               </v-flex>
             </v-layout>
           </v-form>
@@ -100,7 +100,7 @@ export default {
     resetRule() {
       this.blurRule = [];
     },
-    fetchCoords(coords) {
+    sendCoords(coords) {
       this.createdPolygon = coords[0].map(coord => {
         return {
           latitude: coord.lat,

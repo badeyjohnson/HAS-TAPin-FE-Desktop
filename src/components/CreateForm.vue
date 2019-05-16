@@ -14,7 +14,7 @@
       <v-card v-if="q.question_id >10 && q.question_id <= 33" hover flat class="px-4 py-2 my-2">
         <span>{{q.question}}</span>
         <v-radio-group :disabled="disabled" v-model="answers[index]" row>
-          <v-radio color="#696eb5 !important !important" label="Yes" value="1"></v-radio>
+          <v-radio color="#696eb5 !important" label="Yes" value="1"></v-radio>
           <v-radio color="#696eb5 !important" label="No" value="2"></v-radio>
           <v-radio color="#696eb5 !important" label="N/A" value="3"></v-radio>
         </v-radio-group>
@@ -291,7 +291,6 @@ export default {
         ? this.site_id
         : this.$route.params.site_id;
       api.postSiteRiskAssessment(siteIdPresent, postSSRA);
-      api.postMapCoords(siteIdPresent, this.coords);
       router.go(-1);
     },
     validate() {
