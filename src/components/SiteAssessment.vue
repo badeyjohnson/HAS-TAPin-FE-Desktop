@@ -49,7 +49,6 @@ export default {
         const coordsRefactor = [coord.latitude, coord.longitude];
         return coordsRefactor;
       });
-      console.log(this.polygon, "<<< poly");
     }
   }
 };

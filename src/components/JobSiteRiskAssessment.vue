@@ -48,7 +48,6 @@ export default {
   methods: {
     async getRiskAssessments() {
       this.riskAssessments = await api.getSiteRiskAssessments(this.siteId);
-      console.log(this.riskAssessments);
     }
   }
 };
