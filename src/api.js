@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "https://hastapin.appspot.com/api/";
+const BASE_URL = 'https://hastapin.appspot.com/api/';
 
 export const auth = async email => {
   const { data } = await axios.get(`${BASE_URL}users/${email}`);
@@ -28,16 +28,23 @@ export const getMapCoords = async siteId => {
 };
 
 export const postMapCoords = (siteId, coords) => {
-  axios.post(`${BASE_URL}maps/${siteId}`, {coordinates: coords});
-}
+  axios.post(`${BASE_URL}maps/${siteId}`, { coordinates: coords });
+};
 export const postSiteRiskAssessment = (siteId, SSRA) => {
   axios.post(`${BASE_URL}sites/${siteId}/risk_assessments`, SSRA);
-}
+};
 
-export const getSiteRiskAssessments = async (siteId) => {
-  const {data} = await axios.get(`${BASE_URL}sites/${siteId}/risk_assessments`);
-  return data.riskAssessments
-}
+export const getSiteRiskAssessments = async siteId => {
+  const { data } = await axios.get(
+    `${BASE_URL}sites/${siteId}/risk_assessments`
+  );
+  return data.riskAssessments;
+};
+
+export const getSSRA = async (siteId, siteRiskId) => {
+  const { data } = await axios.get(`${BASE_URL}sites/${siteId}/${siteRiskId}`);
+  return data.riskAssessment
+};
 
 export const getQuestions = async siteId => {
   const { data } = await axios.get(
@@ -62,4 +69,4 @@ export const linkJob = async (email, jobNo) => {
 
 export const createSite = async (jobNo, siteDetails) => {
   axios.post(`${BASE_URL}jobs/${jobNo}/sites`, siteDetails);
-}
+};

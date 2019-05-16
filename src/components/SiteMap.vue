@@ -95,6 +95,7 @@ export default {
       this.map.on(L.Draw.Event.CREATED, e => {
         const type = e.layerType;
         const layer = e.layer;
+        console.log(layer)
         this.polygon = layer._latlngs;
       });
       const poly = L.polygon(this.boundary).addTo(this.map);

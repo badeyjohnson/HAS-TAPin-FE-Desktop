@@ -1,131 +1,119 @@
 <template>
-<v-form ref="form" v-model="valid" lazy-validation>
-          <div v-for="(q, index) in questions" :key="q.question_id">
-            <v-card v-if="q.question_id <= 10" hover py-5 my-5>
-              <v-text-field v-model="multi[index]" :counter="100" :label="q.question" py-5 required></v-text-field>
-            </v-card>
-            <v-card v-if="q.question_id >10 && q.question_id <= 33" hover py-5>
-              <span>{{q.question}}</span>
-              <v-radio-group v-model="answers[index]" row>
-                <v-radio label="Yes" value=1></v-radio>
-                <v-radio label="No" value=2></v-radio>
-                <v-radio label="N/A" value=3></v-radio>
-              </v-radio-group>
-              <v-text-field
-                v-model="mitigations[index]"
-                :counter="300"
-                label="Mitigation measures"
-                required
-              ></v-text-field>
-              <span>Risk Level:</span>
-              <v-radio-group v-model="riskLevels[index]" row>
-                <v-radio label="High" value=3></v-radio>
-                <v-radio label="Mod" value=2></v-radio>
-                <v-radio label="Low" value=1></v-radio>
-              </v-radio-group>
-            </v-card>
-            <v-card v-if="q.question_id === 34" hover>
-              <v-layout row wrap>
-                <v-flex grow>
-                  <v-checkbox v-model="ppe" label="Safety helmet" value="Safety helmet"></v-checkbox>
-                  <v-checkbox v-model="ppe" label="Safety boots" value="Safety boots"></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Safety wellington boots"
-                    value="Safety wellington boots"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Boiler suit / overalls"
-                    value="Boiler suit / overalls"
-                  ></v-checkbox>
-                  <v-checkbox v-model="ppe" label="Gloves" value="Gloves"></v-checkbox>
-                </v-flex>
-                <v-flex grow>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="High visibility trousers (Yellow)"
-                    value="High visibility trousers (Yellow)"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="High visibility jacket / vest (Yellow)"
-                    value="High visibility jacket / vest (Yellow)"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="High visibility trousers (Orange)"
-                    value="High visibility trousers (Orange)"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="High visibility jacket / vest (Orange)"
-                    value="High visibility jacket / vest (Orange)"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Goggles / visor / safety glasses"
-                    value="Goggles / visor / safety glasses"
-                  ></v-checkbox>
-                </v-flex>
-                <v-flex grow>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Hearing protection (ear plugs)"
-                    value="Hearing protection (ear plugs)"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Ear defenders (safety helmet)"
-                    value="Ear defenders (safety helmet)"
-                  ></v-checkbox>
-                  <v-checkbox v-model="ppe" label="First aid kit" value="First aid kit"></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Disinfectant hand wipes/gel"
-                    value="Disinfectant hand wipes/gel"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Respiratory protection"
-                    value="Respiratory protection"
-                  ></v-checkbox>
-                </v-flex>
-                <v-flex grow>
-                  <v-checkbox v-model="ppe" label="Mobile phone" value="Mobile phone"></v-checkbox>
-                  <v-checkbox v-model="ppe" label="Satellite phone" value="Satellite phone"></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Torch + spare batteries"
-                    value="Torch + spare batteries"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Head torch + spare batteries"
-                    value="Head torch + spare batteries"
-                  ></v-checkbox>
-                  <v-checkbox
-                    v-model="ppe"
-                    label="Four-point chin strap"
-                    value="Four-point chin strap"
-                  ></v-checkbox>
-                </v-flex>
-              </v-layout>
-            </v-card>
-            <v-card v-if="q.question_id === 35" hover py-5 my-5>
-              <v-text-field v-model="multi[index]" :counter="400" :label="q.question" py-5 required></v-text-field>
-            </v-card>
-          </div>
+  <v-form ref="form" v-model="valid" lazy-validation>
+    <div v-for="(q, index) in questions" :key="q.question_id">
+      <v-card v-if="q.question_id <= 10" hover py-5 my-5>
+        <v-text-field v-model="multi[index]" :counter="100" :label="q.question" py-5 required></v-text-field>
+      </v-card>
+      <v-card v-if="q.question_id >10 && q.question_id <= 33" hover py-5>
+        <span>{{q.question}}</span>
+        <v-radio-group v-model="answers[index]" row>
+          <v-radio label="Yes" value="1"></v-radio>
+          <v-radio label="No" value="2"></v-radio>
+          <v-radio label="N/A" value="3"></v-radio>
+        </v-radio-group>
+        <v-text-field
+          v-model="mitigations[index]"
+          :counter="300"
+          label="Mitigation measures"
+          required
+        ></v-text-field>
+        <span>Risk Level:</span>
+        <v-radio-group v-model="riskLevels[index]" row>
+          <v-radio label="High" value="3"></v-radio>
+          <v-radio label="Mod" value="2"></v-radio>
+          <v-radio label="Low" value="1"></v-radio>
+        </v-radio-group>
+      </v-card>
+      <v-card v-if="q.question_id === 34" hover>
+        <v-layout row wrap>
+          <v-flex grow>
+            <v-checkbox v-model="ppe" label="Safety helmet" value="Safety helmet"></v-checkbox>
+            <v-checkbox v-model="ppe" label="Safety boots" value="Safety boots"></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Safety wellington boots"
+              value="Safety wellington boots"
+            ></v-checkbox>
+            <v-checkbox v-model="ppe" label="Boiler suit / overalls" value="Boiler suit / overalls"></v-checkbox>
+            <v-checkbox v-model="ppe" label="Gloves" value="Gloves"></v-checkbox>
+          </v-flex>
+          <v-flex grow>
+            <v-checkbox
+              v-model="ppe"
+              label="High visibility trousers (Yellow)"
+              value="High visibility trousers (Yellow)"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="High visibility jacket / vest (Yellow)"
+              value="High visibility jacket / vest (Yellow)"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="High visibility trousers (Orange)"
+              value="High visibility trousers (Orange)"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="High visibility jacket / vest (Orange)"
+              value="High visibility jacket / vest (Orange)"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Goggles / visor / safety glasses"
+              value="Goggles / visor / safety glasses"
+            ></v-checkbox>
+          </v-flex>
+          <v-flex grow>
+            <v-checkbox
+              v-model="ppe"
+              label="Hearing protection (ear plugs)"
+              value="Hearing protection (ear plugs)"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Ear defenders (safety helmet)"
+              value="Ear defenders (safety helmet)"
+            ></v-checkbox>
+            <v-checkbox v-model="ppe" label="First aid kit" value="First aid kit"></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Disinfectant hand wipes/gel"
+              value="Disinfectant hand wipes/gel"
+            ></v-checkbox>
+            <v-checkbox v-model="ppe" label="Respiratory protection" value="Respiratory protection"></v-checkbox>
+          </v-flex>
+          <v-flex grow>
+            <v-checkbox v-model="ppe" label="Mobile phone" value="Mobile phone"></v-checkbox>
+            <v-checkbox v-model="ppe" label="Satellite phone" value="Satellite phone"></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Torch + spare batteries"
+              value="Torch + spare batteries"
+            ></v-checkbox>
+            <v-checkbox
+              v-model="ppe"
+              label="Head torch + spare batteries"
+              value="Head torch + spare batteries"
+            ></v-checkbox>
+            <v-checkbox v-model="ppe" label="Four-point chin strap" value="Four-point chin strap"></v-checkbox>
+          </v-flex>
+        </v-layout>
+      </v-card>
+      <v-card v-if="q.question_id === 35" hover py-5 my-5>
+        <v-text-field v-model="multi[index]" :counter="400" :label="q.question" py-5 required></v-text-field>
+      </v-card>
+    </div>
 
-          <v-checkbox
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Do you agree?"
-            required
-          ></v-checkbox>
+    <v-checkbox
+      v-model="checkbox"
+      :rules="[v => !!v || 'You must agree to continue!']"
+      label="Do you agree?"
+      required
+    ></v-checkbox>
 
-          <v-btn :disabled="!valid" color="success" @click="submitSSRA">Submit</v-btn>
-        </v-form>
+    <v-btn :disabled="!valid" color="success" @click="submitSSRA">Submit</v-btn>
+  </v-form>
 </template>
 
 <script>
@@ -137,9 +125,12 @@ import * as util from "../util";
 export default {
   name: "Site",
   props: {
-     coords : {
-         type: Array
-     }
+    coords: {
+      type: Array
+    },
+    SSRA: {
+      type: Array
+    }
   },
 
   data() {
@@ -158,11 +149,23 @@ export default {
     };
   },
   watch: {
-
+    SSRA: function() {
+      this.answers = this.SSRA.map(question => {
+        if (question.answer === "Y") {
+          return 1;
+        } else if (question.answer === "N") {
+          return 2;
+        } else if (question.answer === "N/A") {
+          return 3;
+        } else return null;
+      });
+      console.log(this.answers, "<<< answers");
+    }
   },
 
   mounted() {
     this.fetchQuestions();
+    this.answers = [null, null, null, null, null, null, null, null, null, null, '1', '1', '1', 2, '1', 2, '1', 2, 2, 2, '1', 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, null, null]
   },
 
   methods: {
@@ -176,8 +179,8 @@ export default {
         this.riskLevels,
         this.ppe
       );
-      api.postSiteRiskAssessment(this.site_id, postSSRA)
-      api.postMapCoords(this.site_id, this.coords)
+      api.postSiteRiskAssessment(this.site_id, postSSRA);
+      api.postMapCoords(this.site_id, this.coords);
     },
     validate() {
       if (this.$refs.form.validate()) {
@@ -187,7 +190,7 @@ export default {
     async fetchQuestions() {
       const questions = await api.getQuestions(1);
       this.questions = questions;
-    },
-  },
+    }
+  }
 };
 </script>

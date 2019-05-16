@@ -8,7 +8,7 @@
         <v-card-title class="headline grey lighten-2" primary-title>Site information</v-card-title>
         <v-card-text>This card should have a map, information about the latest risk assessment, list of people who have filled it out etc</v-card-text>
         <SiteMap :rerender=" dialog " :boundary="polygon"/>
-        <CreateForm/>
+        <CreateForm :SSRA="riskData"/>
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -29,7 +29,9 @@ export default {
     return {
       dialog: false,
       polygon: [],
-      siteId: 1
+      riskData: [],
+      siteId: 1,
+      siteRiskId: 9
     };
   },
   components: {
@@ -39,7 +41,7 @@ export default {
 
   mounted() {
     this.fetchMapCoords();
-    
+    this.fetchSSRA();
   },
 
   methods: {
@@ -49,7 +51,13 @@ export default {
         const coordsRefactor = [coord.latitude, coord.longitude];
         return coordsRefactor;
       });
-      console.log(this.polygon, "<<< poly");
+    },
+    async fetchSSRA() {
+      const unsortedRiskData = await api.getSSRA(this.siteId, this.siteRiskId);
+      const sortedRiskData = unsortedRiskData.sort(function(a, b) {
+        return a.question_id - b.question_id;
+      });
+      this.riskData = sortedRiskData
     }
   }
 };
