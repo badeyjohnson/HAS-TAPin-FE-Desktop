@@ -59,7 +59,6 @@ export default {
       });
     },
     async fetchSSRA() {
-      console.log(this.siteRiskId, '<<< site risk')
       const unsortedRiskData = await api.getSSRA(this.siteId, this.siteRiskId);
       const sortedRiskData = unsortedRiskData.sort(function(a, b) {
         return a.question_id - b.question_id;

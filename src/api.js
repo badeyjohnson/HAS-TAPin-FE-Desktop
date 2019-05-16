@@ -64,11 +64,10 @@ export const createJob = async (email, jobDetails) => {
 };
 
 export const linkJob = async (email, jobNo) => {
-  axios.post(`${BASE_URL}users/${email}/jobs/link`, jobNo);
+  axios.post(`${BASE_URL}users/${email}/jobs/link`, {"job_no": +jobNo});
 };
 
 export const createSite = async (jobNo, siteDetails) => {
   const { data } = await axios.post(`${BASE_URL}jobs/${jobNo}/sites`, siteDetails);
-  console.log(data, 'data')
   return data.addedSite
 };
