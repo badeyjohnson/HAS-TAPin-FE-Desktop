@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-container>
-      <v-layout v-layout align-center justify-space-around row fill-height>
+      <v-layout align-center justify-space-around row fill-height>
         <v-avatar :tile="false" :size="100" color="grey lighten-4">
           <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
         </v-avatar>
