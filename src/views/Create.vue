@@ -5,7 +5,7 @@
         <JobHeader/>
       </v-flex>
       <v-flex xs12>
-        <SiteMap :boundary="polygon" :sendCoords="fetchCoords"/>
+        <SiteMap :boundary="polygon" />
         <CreateForm :coords="polygon"/>
         
       </v-flex>
@@ -25,22 +25,6 @@ export default {
       valid: true,
       polygon: [[]],
     };
-  },
-  watch: {},
-
-  mounted() {
-    // this.fetchQuestions();
-  },
-
-  methods: {
-    fetchCoords(coords) {
-      this.polygon = coords[0].map(coord => {
-        return {
-          latitude: coord.lat,
-          longitude: coord.lng
-        };
-      });
-    }
   },
 
   components: {
