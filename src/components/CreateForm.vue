@@ -182,6 +182,7 @@
             ></v-checkbox>
             <v-checkbox
               :disabled="disabled"
+              color="#696eb5 !important"
               v-model="ppe"
               label="Four-point chin strap"
               value="Four-point chin strap"

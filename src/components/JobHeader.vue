@@ -11,7 +11,7 @@
           <h3 class="display-1 white--text font-weight-light mb-0">{{jobInfo.job_name}}</h3>
         <div class="white--text">
           <span >Job number: {{jobInfo.job_no}}</span><br>
-          <span>Project manager: {{upperFirstName}} {{upperLastName}}</span><br>
+          <span>Project manager: {{this.jobInfo.pm_first_name}} {{this.jobInfo.pm_last_name}}</span><br>
           Contact number: {{jobInfo.pm_number}}
         </div>
         </div>
