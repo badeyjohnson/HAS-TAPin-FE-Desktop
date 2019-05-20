@@ -7,7 +7,6 @@ export const formatSSRA = (
   riskLevels,
   ppe
 ) => {
-  // {email: '', response: [{question_id: 1, answers_options: '', mitigation_Measures: '', risk_level: '', multi_option: ''}, {question_id: 2, ...}, }
   const response = questions.map((question, index) => {
     if (question.question_id !== 34) {
       return {
